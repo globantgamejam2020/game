@@ -3,38 +3,38 @@ import {vanish_corners} from './actions';
 const objetos = [
     {
         entrada: [
-            [true, true, true],
-            [true, true, true],
-            [true, true, true]
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ],
         salida: [
-            [false, true, false],
-            [false, true, false],
-            [true, true, true]
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: false}],
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: false}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ]
     },
     {
         entrada: [
-            [true, false, false],
-            [true, false, false],
-            [false, true, true]
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: false}],
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: false}],
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: true}]
         ],
         salida: [
-            [true, true, false],
-            [true, false, true],
-            [false, true, true]
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: false}],
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: true}]
         ]
     },
     {
         entrada: [
-            [false, false, true],
-            [false, false, true],
-            [true, true, true]
+            [{color: 'black', active: false}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: false}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ],
         salida: [
-            [true, false, true],
-            [true, false, true],
-            [true, true, true]
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ]
     }
 ];
