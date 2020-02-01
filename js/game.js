@@ -1,25 +1,57 @@
-var game = new Phaser.Game(1200, 600, Phaser.CANVAS, 'game-canvas', { preload: preload, create: create, render: render, update: update });
+var game = new Phaser.Game(
+    1200, 600,
+    Phaser.CANVAS,
+    'game-canvas',
+    { preload: preload, create: create, render: render, update: update }
+);
 
 var debugText = '';
+var bgMusic; // TODO
 
 function preload() {
     preloadSwitches();
+    preloadMachines();
+    // this.load.audio('bg_music', 'sounds/bg-music.ogg'); // TODO: Music
+    // this.load.spritesheet('platform', 'assets/platform.png', { frameWidth: 119, frameHeight: 24 }); // TODO: Platform
 
-    // TODO: move to machines.js
 }
 
 function create() {
-    createSwitches();
+    // TODO: Music
+    // bgMusic = this.sound.add('background_music');
+    // backgroundMusic.volume = 0.25;
+    // bgMusic.play();
+
     createObject();
+    createMachines();
+    createSwitches();
 }
 
 function update() {
+
+    // TODO: test, remove
+    var randMatrix = [
+        [
+            [{color: 0xfff, active: true}, {color: 0x4b, active: false}, {color: 0xfff, active: true}],
+            [{color: 0xfff, active: false}, {color: 0x4b, active: true}, {color: 0x4b, active: true}],
+            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
+        ],
+        [
+            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xfff, active: true}],
+            [{color: 0x4b, active: true}, {color: 0x4b, active: true}, {color: 0xfff, active: true}],
+            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
+        ],
+        [
+            [{color: 0xfff, active: false}, {color: 0xfff, active: true}, {color: 0xfff, active: true}],
+            [{color: 0xFFFF00, active: false}, {color: 0x4b, active: true}, {color: 0x4b, active: false}],
+            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
+        ]
+    ]
+
+    updateMachines();
+
     // TODO: Test. Use actual matrix.
-    updateObject([
-        [{color: 0xfff, active: true}, {color: 0xFFFF00, active: true}, {color: 0xfff, active: true}],
-        [{color: 0xfff, active: true}, {color: 0x4b, active: true}, {color: 0xfff, active: false}],
-        [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
-    ]);
+    updateObject(randMatrix[Math.floor(Math.random() * 2)]);
 }
 
 function render() {

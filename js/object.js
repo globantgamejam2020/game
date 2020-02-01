@@ -5,7 +5,7 @@
  */
 
 const posLimit = 1200;
-const posStep = 10;
+const posStep = 5;
 const objSize = 30;
 const objX = -30;
 const objY = 285;
