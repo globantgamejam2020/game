@@ -1,45 +1,46 @@
+import {CellState, Machine} from './types';
+
 const objetos = [
     {
         entrada: [
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: true }],
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: true }],
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: true }]
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ],
         salida: [
-            [{ color: 'black', active: false }, { color: 'black', active: true }, { color: 'black', active: false }],
-            [{ color: 'black', active: false }, { color: 'black', active: true }, { color: 'black', active: false }],
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: true }]
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: false}],
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: false}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ]
     },
     {
         entrada: [
-            [{ color: 'black', active: true }, { color: 'black', active: false }, { color: 'black', active: false }],
-            [{ color: 'black', active: true }, { color: 'black', active: false }, { color: 'black', active: false }],
-            [{ color: 'black', active: false }, { color: 'black', active: true }, { color: 'black', active: true }]
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: false}],
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: false}],
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: true}]
         ],
         salida: [
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: false }],
-            [{ color: 'black', active: true }, { color: 'black', active: false }, { color: 'black', active: true }],
-            [{ color: 'black', active: false }, { color: 'black', active: true }, { color: 'black', active: true }]
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: false}],
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: true}]
         ]
     },
     {
         entrada: [
-            [{ color: 'black', active: false }, { color: 'black', active: false }, { color: 'black', active: true }],
-            [{ color: 'black', active: false }, { color: 'black', active: false }, { color: 'black', active: true }],
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: true }]
+            [{color: 'black', active: false}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: false}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ],
         salida: [
-            [{ color: 'black', active: true }, { color: 'black', active: false }, { color: 'black', active: true }],
-            [{ color: 'black', active: true }, { color: 'black', active: false }, { color: 'black', active: true }],
-            [{ color: 'black', active: true }, { color: 'black', active: true }, { color: 'black', active: true }]
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
+            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
         ]
     }
 ];
 
-type CellState = { color: string, active: boolean };
 
-class MachineSumaResta {
+class MachineSumaResta implements Machine {
     private on = true;
     private resta = false;
 
@@ -55,24 +56,63 @@ class MachineSumaResta {
 
     getActions() {
         return [
-            () => this.resta = !this.resta,
-            () => this.resta = !this.resta,
-            () => this.on = !this.on,
-            () => this.reset(),
+            () => {
+                this.resta = !this.resta;
+                return this.resta
+            },
+            () => {
+                this.resta = !this.resta;
+                return this.resta
+            },
+            () => {
+                this.on = !this.on;
+                return this.on
+            },
+            () => {
+                this.reset();
+                return false
+            },
         ]
     }
 
     getVariants() {
         return [
-            () => this.center = !this.center,
-            () => this.corners = !this.corners,
-            () => this.row_0 = !this.row_0,
-            () => this.row_1 = !this.row_1,
-            () => this.col_0 = !this.col_0,
-            () => this.row_2 = !this.row_2,
-            () => this.col_1 = !this.col_1,
-            () => this.col_2 = !this.col_2,
-            () => this.middles = !this.middles,
+            () => {
+                this.center = !this.center;
+                return this.center
+            },
+            () => {
+                this.corners = !this.corners;
+                return this.corners
+            },
+            () => {
+                this.row_0 = !this.row_0;
+                return this.row_0
+            },
+            () => {
+                this.row_1 = !this.row_1;
+                return this.row_1
+            },
+            () => {
+                this.col_0 = !this.col_0;
+                return this.col_0
+            },
+            () => {
+                this.row_2 = !this.row_2;
+                return this.row_2
+            },
+            () => {
+                this.col_1 = !this.col_1;
+                return this.col_1
+            },
+            () => {
+                this.col_2 = !this.col_2;
+                return this.col_2
+            },
+            () => {
+                this.middles = !this.middles;
+                return this.middles
+            },
         ].sort(() => Math.random() - 0.5);
     }
 

@@ -7,7 +7,7 @@ main repository
 npm install -g typescript
 
 # Compilar los archivos ts.
-tsc
+tsc -w
 ```
 
 ### Switches (?
