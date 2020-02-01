@@ -28,14 +28,14 @@ export type ObjectState = (string | undefined)[][];
 type Transformation = (state: ObjectState, variants: Variant[]) => void;
 type MachineConfiguration = Map<Point, [Transformation, Map<Point, Variant>]>
 
-const transformations: Transformation[] = []
+const transformations: Transformation[] = [];
 
 export const applyTransformations = (switchesState: SwitchesState, configuration: MachineConfiguration, object: ObjectState) => {
     const [transformationCoordinates, variantsCoordinates] = switchesState;
     const [transformation, variantsConfiguration] = configuration.get(transformationCoordinates)!;
     const variants = variantsCoordinates.map(v => variantsConfiguration.get(v)!);
     transformation(object, variants);
-}
+};
 
 export const getMachineConfiguration = () => {
     const result = new Map();
@@ -52,4 +52,4 @@ export const getMachineConfiguration = () => {
     }
 
 
-}
+};

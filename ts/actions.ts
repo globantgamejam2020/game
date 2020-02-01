@@ -4,7 +4,7 @@ function vanish_center(obj: ObjectState): void {
     obj[1][1] = undefined;
 }
 
-function vanish_corners(obj: ObjectState): void {
+export function vanish_corners(obj: ObjectState): void {
     obj[0][0] = undefined;
     obj[0][2] = undefined;
     obj[2][0] = undefined;
