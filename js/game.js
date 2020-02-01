@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 var config = {
     type: Phaser.CANVAS,
@@ -42,14 +43,22 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     //dude
     game.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-
-}
+=======
+var game = new Phaser.Game(1200, 600, Phaser.CANVAS, 'game-canvas', { preload: preload, create: create, render: render, update: update });
 
 var debugText = '';
+
+function preload() {
+    preloadSwitches();
+>>>>>>> 5a7ef527906abffafc0da0bd57a760d0fbb7993b
+
+    // TODO: move to machines.js
+}
 
 function create() {
     floor = new Phaser.Rectangle(0, 550, 800, 50);
     createSwitches();
+<<<<<<< HEAD
     //grounds
     platforms.create(600, 468, 'ground').setScale(3).refreshBody();
     platforms.create(1400, 550, 'ground');
@@ -112,12 +121,16 @@ function create() {
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+=======
+    createObject();
+>>>>>>> 5a7ef527906abffafc0da0bd57a760d0fbb7993b
 }
 function update() {
     if (gameOver) {
         return;
     }
 
+<<<<<<< HEAD
     stars.setVelocityX(60)
 
     if (cursors.left.isDown) {
@@ -166,11 +179,21 @@ function collectStar(player, star) {
     }
 }
 function render() {
+=======
+function update() {
+    // TODO: Test. Use actual matrix.
+    updateObject([
+        [{color: 0xfff, active: true}, {color: 0xFFFF00, active: true}, {color: 0xfff, active: true}],
+        [{color: 0xfff, active: true}, {color: 0x4b, active: true}, {color: 0xfff, active: false}],
+        [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
+    ]);
+}
+>>>>>>> 5a7ef527906abffafc0da0bd57a760d0fbb7993b
 
+function render() {
     if (debugText === '') {
         game.debug.text("Interact with the switches.", 32, 32);
     } else {
         game.debug.text(debugText, 32, 32);
     }
-
 }

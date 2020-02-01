@@ -1,11 +1,92 @@
-// Sets of switches
-var switches1, switches2, switches3;
+/**
+ * Handles all three switches and offers
+ * utils methods for matrix conversion
+ */
 
+// Start position
+const switchStartRow = 200;
+const switchStartColumn = 250;
+
+// Switches textures references
+const switchOffTexture = "switch-off";
+const switchOnTexture = "switch-on";
+
+// Padding/margin
 const setPadding = 250;
-const switchStartRow = 150;
-const switchStartColumn = 64;
-const switchHMargin = 64;
-const switchVMargin = 75;
+const switchHMargin = 50;
+const switchVMargin = 50;
+
+// Sets of switches
+var switches = [];
+
+/**
+ * Preload for switches
+ */
+function preloadSwitches() {
+    game.load.image(switchOnTexture, 'assets/switch_on.png');
+    game.load.image(switchOffTexture, 'assets/switch_off.png');
+}
+
+/**
+ * Toggles switches visibility
+ * @param {*} setNumber 
+ */
+function toggleSwitches(setNumber) {
+    switches[setNumber].alpha = switches[setNumber].alpha != 0 ? 0 : 1;
+}
+
+/**
+ * Return reference to a switch
+ * @param {*} r row
+ * @param {*} c column
+ */
+function locateSwitch(setNumber, r, c) {
+    var children = switches[setNumber].children;
+    for (var i = 0; i < children.length; i++) {
+        var coords = children[i].coords;
+        if (coords[0] == r && coords[1] == c)
+            return children[i];
+    }
+    return undefined;
+}
+
+/**
+ * Updates set of switches based on a matrix of states
+ * @param {*} setNumber 
+ * @param {*} matrix 
+ */
+function matrixToSwitches(setNumber, matrix) {
+    var aSwitch;
+    for (var r = 0; r < 4; r++) {
+        for (var c = 0; c < 4; c++) {
+            aSwitch = locateSwitch(setNumber, r, c);
+            if (aSwitch) {
+                aSwitch.state = matrix[r][c];
+                updateSwitchState(aSwitch);
+            }
+        }
+    }
+}
+
+/**
+ * Convert a specific set of switches sprites to boolean arrays
+ * @param {*} setNumber 
+ */
+function switchesToMatrix(setNumber) {
+    var matrix = [];
+    var row = [];
+    var children = switches[setNumber].children;
+    var cutRows = [3, 7, 11, 15];
+    for (var i = 0; i < children.length; i++) {
+        row.push(children[i].state);
+        // Cut row and add to matrix
+        if (cutRows.includes(i)) {
+            matrix.push(row);
+            row = [];
+        }
+    }
+    return matrix;  
+}
 
 /**
  * Create a set of switches on the canvas
@@ -14,15 +95,23 @@ const switchVMargin = 75;
  */
 function createSetOfSwitches(switches, setNumber) {
     var aSwitch;
-    for (var i = 0; i < 9; i++) {
-        if (i < 3)
-            aSwitch = switches.create((switchStartColumn + (setPadding * setNumber)) + (switchHMargin * i), switchStartRow, 'switch-on');
-        else if (i < 6)
-            aSwitch = switches.create((switchStartColumn + (setPadding * setNumber)) + (switchHMargin * (i - 3)), switchStartRow + (switchVMargin), 'switch-on');
-        else
-            aSwitch = switches.create((switchStartColumn + (setPadding * setNumber)) + (switchHMargin * (i - 6)), switchStartRow + (switchVMargin * 2), 'switch-on');
+    for (var i = 0; i < 16; i++) {
+        if (i < 4) {
+            aSwitch = switches.create(switchStartColumn + (i * switchHMargin) + (setPadding * setNumber), switchStartRow, switchOffTexture);
+            aSwitch.coords = [0, i];
+        } else if (i < 8) {
+            aSwitch = switches.create(switchStartColumn + ((i - 4) * switchHMargin) + (setPadding * setNumber), switchStartRow + switchVMargin, switchOffTexture);
+            aSwitch.coords = [1, i - 4];
+        } else if (i < 12) {
+            aSwitch = switches.create(switchStartColumn + ((i - 8) * switchHMargin) + (setPadding * setNumber), switchStartRow + switchVMargin * 2, switchOffTexture);
+            aSwitch.coords = [2, i - 8];
+        } else {
+            aSwitch = switches.create(switchStartColumn + ((i - 12) * switchHMargin) + (setPadding * setNumber), switchStartRow + switchVMargin * 3, switchOffTexture);
+            aSwitch.coords = [3, i - 12];
+        }
         aSwitch.name = `switch${setNumber}-child-` + i;
-        aSwitch.state = true;
+        aSwitch.state = false;
+        aSwitch.id = [setNumber, i];
     }
 }
 
@@ -41,68 +130,66 @@ function createSwitchesEvents(switches) {
  * Create all switches
  */
 function createSwitches() {
-    switches1 = game.add.group();
-    switches2 = game.add.group();
-    switches3 = game.add.group();
+    switches.push(game.add.group());
+    switches.push(game.add.group());
+    switches.push(game.add.group());
 
-    // This will automatically inputEnable all children added to both Groups
-    switches1.inputEnableChildren = true;
-    switches2.inputEnableChildren = true;
-    switches3.inputEnableChildren = true;
+    for (var i = 0; i < switches.length; i++) {
+        // This will automatically inputEnable all children added to both Groups
+        switches[i].inputEnableChildren = true;
 
-    // Add set of switches
-    createSetOfSwitches(switches1, 0);
-    createSetOfSwitches(switches2, 1);
-    createSetOfSwitches(switches3, 2);
+        // Add set of switches
+        createSetOfSwitches(switches[i], i);
 
-    // Add events
-    createSwitchesEvents(switches1);
-    createSwitchesEvents(switches2);
-    createSwitchesEvents(switches3);
+        // Add events
+        createSwitchesEvents(switches[i]);
+    }
 }
 
 /**
  * Event on down
- * @param {*} sprite 
+ * @param {*} aSwitch 
  */
-function onSwitchDown (sprite) {
-    // debugText = "onDown: " + sprite.name;
-    // sprite.tint = 0x00ff00;
+function onSwitchDown (aSwitch) {
+    // debugText = "onDown: " + aSwitch.name;
+    // aSwitch.tint = 0x00ff00;
 }
 
 /**
  * Event on over
- * @param {*} sprite 
+ * @param {*} aSwitch 
  */
-function onSwitchOver (sprite) {
-    // debugText = "onOver: " + sprite.name;
-    // sprite.tint = 0xff0000;
+function onSwitchOver (aSwitch) {
+    // debugText = "onOver: " + aSwitch.name;
+    // aSwitch.tint = 0xff0000;
 }
 
 /**
  * Event on out
- * @param {*} sprite 
+ * @param {*} aSwitch 
  */
-function onSwitchOut (sprite) {
-    // sprite.tint = 0xffffff;
+function onSwitchOut (aSwitch) {
+    // aSwitch.tint = 0xffffff;
 }
 
 /**
  * Event on up
- * @param {*} sprite 
+ * @param {*} aSwitch 
  */
-function onSwitchUp (sprite) {
+function onSwitchUp (aSwitch) {
+    aSwitch.state = !aSwitch.state;
+    updateSwitchState(aSwitch);
 
-    sprite.state = !sprite.state;
+    debugText = `onUp - Changed switch ${aSwitch.name} (${aSwitch.id}) state to ${aSwitch.state}`;
+}
 
-    if (sprite.state) {
-        sprite.loadTexture('switch-on');
+/**
+ * Updates switch texture based on state
+ */
+function updateSwitchState(aSwitch) {
+    if (aSwitch.state) {
+        aSwitch.loadTexture(switchOnTexture);
     } else {
-        sprite.loadTexture('switch-off');
+        aSwitch.loadTexture(switchOffTexture);
     }
-
-    debugText = `onUp - Changed switch ${sprite.name} state to ${sprite.state}`;
-
-    // sprite.tint = 0xffffff;
-
 }
