@@ -1,44 +1,55 @@
-type ArrayFixed<T, L extends number> = [T, ...Array<T>] & { length: L }
+enum Locations {
+    CENTER,
+    CORNERS,
+    ROW_0,
+    ROW_1,
+    ROW_2,
+    COL_0,
+    COL_1,
+    COL_2,
+}
 
+enum Rotations {
+    ROTATE_90 = 1,
+    ROTATE_180 = 2,
+    ROTATE_270 = 3,
+}
+
+enum Colors {
+    red = "#ff0000",
+}
+
+type Variant = Locations | Rotations | Colors;
 type Point = [number, number];
-type SwitchesState = ArrayFixed<ArrayFixed<boolean, 4>, 4>;
-type ObjectState = ArrayFixed<ArrayFixed<boolean, 3>, 3>;
-type Transformation = (state: ObjectState) => void;
-type MachineConfiguration = Map<Point[], Transformation>;
 
-const transformations: Transformation[] = [
-    (state: ObjectState) => rotate(state, 1),
-    (state: ObjectState) => rotate(state, 2),
-    (state: ObjectState) => rotate(state, 3),
-]
+type SwitchesState = [Point, Point[]];
+export type ObjectState = (string | undefined)[][];
 
-const objectStates = new Map<object, ObjectState>();
-const machineConfigurations = new Map<object, MachineConfiguration>();
+type Transformation = (state: ObjectState, variants: Variant[]) => void;
+type MachineConfiguration = Map<Point, [Transformation, Map<Point, Variant>]>
 
-const transform = (switchesState: SwitchesState, machine: object, object: object) => {
-    const objectState = objectStates.get(object)!;
-    const machineConfiguration = machineConfigurations.get(machine)!;
-    for (const [requiredActivations, action] of machineConfiguration.entries())
-        if (allAreEnabled(requiredActivations, switchesState)) action(objectState);
+const transformations: Transformation[] = []
+
+export const applyTransformations = (switchesState: SwitchesState, configuration: MachineConfiguration, object: ObjectState) => {
+    const [transformationCoordinates, variantsCoordinates] = switchesState;
+    const [transformation, variantsConfiguration] = configuration.get(transformationCoordinates)!;
+    const variants = variantsCoordinates.map(v => variantsConfiguration.get(v)!);
+    transformation(object, variants);
 }
 
-const allAreEnabled = (requiredActivations: Point[], switchesState: SwitchesState) => {
-    for (const [x, y] of requiredActivations)
-        if (!switchesState[x][y]) return false;
-    return true
-}
+export const getMachineConfiguration = () => {
+    const result = new Map();
 
-const rotate = (state: ObjectState, times: number) => {
-    const timesNeeded = times % 4;
-    for (let i = 0; i < timesNeeded; i += 1) rotateOnce(state)
-}
+    let coordinates: [number, number][] = [
+        [0, 0], [0, 1], [0, 2], [0, 3],
+        [1, 0], [1, 1], [1, 2], [1, 3],
+        [2, 0], [2, 1], [2, 2], [2, 3],
+        [3, 0], [3, 1], [3, 2], [3, 3],
+    ].sort(() => Math.random() - 0.5);
 
-const rotateOnce = (matrix: ObjectState) => {
-    for (let i = 0; i < 2; i++) {
-        const value = matrix[0][i];
-        matrix[0][i] = matrix[2 - i][0];
-        matrix[2 - i][0] = matrix[2][2 - i];
-        matrix[2][2 - i] = matrix[i][2]
-        matrix[i][2] = value
+    for (const transformation of transformations) {
+        result.set(coordinates.pop()!, transformation);
     }
+
+
 }

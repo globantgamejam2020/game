@@ -1,43 +1,25 @@
-enum Actions {
-    // Desvanecer partes de la matriz.
-    vanish_center,
-    vanish_corners,
-    vanish_row_0,
-    vanish_row_1,
-    vanish_row_2,
-    vanish_col_0,
-    vanish_col_1,
-    vanish_col_2,
-
-    // Rotar partes de la matriz
-    rotate_90,
-    rotate_180,
-    rotate_270,
-
-    // Cambiar la distribucion de los switches.
-    change_switches_distribution
-}
+import { ObjectState } from "./transformations";
 
 function vanish_center(obj: ObjectState): void {
-    obj[1][1] = false;
+    obj[1][1] = undefined;
 }
 
 function vanish_corners(obj: ObjectState): void {
-    obj[0][0] = false;
-    obj[0][2] = false;
-    obj[2][0] = false;
-    obj[2][2] = false;
+    obj[0][0] = undefined;
+    obj[0][2] = undefined;
+    obj[2][0] = undefined;
+    obj[2][2] = undefined;
 }
 
 function vanish_row(obj: ObjectState, row: number): void {
-    for(let i = 0; i < 3; i++) {
-        obj[row][i] = false;
+    for (let i = 0; i < 3; i++) {
+        obj[row][i] = undefined;
     }
 }
 
 function vanish_col(obj: ObjectState, col: number): void {
-    for(let i = 0; i < 3; i++) {
-        obj[i][col] = false;
+    for (let i = 0; i < 3; i++) {
+        obj[i][col] = undefined;
     }
 }
 
@@ -63,4 +45,19 @@ function vanish_col_1(obj: ObjectState): void {
 
 function vanish_col_2(obj: ObjectState): void {
     return vanish_col(obj, 2);
+}
+
+const rotate = (state: ObjectState, times: number) => {
+    const timesNeeded = times % 4;
+    for (let i = 0; i < timesNeeded; i += 1) rotateOnce(state)
+}
+
+const rotateOnce = (matrix: ObjectState) => {
+    for (let i = 0; i < 2; i++) {
+        const value = matrix[0][i];
+        matrix[0][i] = matrix[2 - i][0];
+        matrix[2 - i][0] = matrix[2][2 - i];
+        matrix[2][2 - i] = matrix[i][2]
+        matrix[i][2] = value
+    }
 }
