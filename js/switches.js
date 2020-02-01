@@ -13,6 +13,7 @@ const switchVMargin = 50;
 
 // Sets of switches
 var switches = [];
+var machines = [];
 
 /**
  * Return reference to a switch
@@ -74,10 +75,15 @@ function switchesToMatrix(setNumber) {
  */
 function createSetOfSwitchesMachineA(switches) {
     var aSwitch;
+    let machine = new MachineSumaResta();
+    machines.push(machine);
+    let actions = machine.getActions();
     for (var i = 0; i < 4; i++) {
         aSwitch = switches.create(switchStartColumn - 25 + (i * switchHMargin), switchStartRow, switchOffTexture);
         aSwitch.state = false;
+        aSwitch.action = actions[i];
     }
+    let variants = machine.getVariants();
     for (var i = 0; i < 9; i++) {
         if (i < 3) {
             aSwitch = switches.create(switchStartColumn + (i * switchHMargin), switchStartRow + switchVMargin, switchOffTexture);
@@ -87,6 +93,7 @@ function createSetOfSwitchesMachineA(switches) {
             aSwitch = switches.create(switchStartColumn + ((i - 6) * switchHMargin), switchStartRow + switchVMargin * 3, switchOffTexture);
         }
         aSwitch.state = false;
+        aSwitch.action = variants[i];
     }
 }
 
@@ -126,7 +133,7 @@ function createSwitches() {
     switches.push(game.add.group());
 
     switches[0].inputEnableChildren = true;
-    createSetOfSwitchesMachineB(switches[0]);
+    createSetOfSwitchesMachineA(switches[0]);
     createSwitchesEvents(switches[0]);
 
     /*switches[1].inputEnableChildren = true;
@@ -167,8 +174,7 @@ function onSwitchOut(aSwitch) {
 function onSwitchUp(aSwitch) {
     aSwitch.state = !aSwitch.state;
     updateSwitchState(aSwitch);
-
-    debugText = `onUp - Changed switch (${aSwitch.id}) state to ${aSwitch.state}`;
+    aSwitch.action();
 }
 
 /**

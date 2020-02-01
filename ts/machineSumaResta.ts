@@ -39,7 +39,7 @@ const objetos = [
 
 type CellState = { color: string, active: boolean };
 
-export class MachineSumaResta {
+class MachineSumaResta {
     private on = true;
     private resta = false;
 
