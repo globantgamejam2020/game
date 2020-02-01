@@ -7,7 +7,7 @@
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <style type="text/css">
         body {
-            background-image: url('sky.jpg');
+            background-image: url('assets/sky.jpg');
             margin: 0;
         }
     </style>
@@ -63,6 +63,9 @@
             //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
             platforms.create(600, 468, 'ground').setScale(3).refreshBody();
 
+            platforms.create(1400, 550, 'ground');
+            //platforms.create(750, 220, 'ground');
+
             // The player and its settings
             player = this.physics.add.sprite(100, 350, 'dude');
 
@@ -111,7 +114,7 @@
             bombs = this.physics.add.group();
 
             //  The score
-            scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+            //scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
             //  Collide the player and the stars with the platforms
             this.physics.add.collider(player, platforms);
@@ -128,6 +131,8 @@
             if (gameOver) {
                 return;
             }
+
+            stars.setVelocityX(60)
 
             if (cursors.left.isDown) {
                 player.setVelocityX(-160);
@@ -154,8 +159,8 @@
             star.disableBody(true, true);
 
             //  Add and update the score
-            score += 10;
-            scoreText.setText('Score: ' + score);
+            //score += 10;
+            //scoreText.setText('Score: ' + score);
 
             if (stars.countActive(true) === 0) {
                 //  A new batch of stars to collect
