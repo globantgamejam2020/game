@@ -26,6 +26,7 @@ var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
+var floor;
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'game-canvas', { preload: preload, create: create, render: render });
 
@@ -47,6 +48,7 @@ function preload() {
 var debugText = '';
 
 function create() {
+    floor = new Phaser.Rectangle(0, 550, 800, 50);
     createSwitches();
     //grounds
     platforms.create(600, 468, 'ground').setScale(3).refreshBody();

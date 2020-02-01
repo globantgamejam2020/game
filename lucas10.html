@@ -44,6 +44,11 @@
         var score = 0;
         var gameOver = false;
         var scoreText;
+        var rect1;
+        var rect2;
+        var graphics;
+        var y = 0;
+        var size = 50;
 
         var game = new Phaser.Game(config);
 
@@ -56,6 +61,10 @@
 
         function create() {
 
+            graphics = this.add.graphics({ fillStyle: { color: 0x0000aa } });
+
+            rect1 = new Phaser.Geom.Rectangle(100, 0, 50, 50);
+            rect2 = new Phaser.Geom.Rectangle(450, 0, 50, 50);
             //  The platforms group contains the ground and the 2 ledges we can jump on
             platforms = this.physics.add.staticGroup();
 
@@ -114,9 +123,6 @@
 
             bombs = this.physics.add.group();
 
-            //  The score
-            //scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
             //  Collide the player and the stars with the platforms
             this.physics.add.collider(player, platforms);
             this.physics.add.collider(stars, platforms);
@@ -126,13 +132,25 @@
             this.physics.add.overlap(player, stars, collectStar, null, this);
 
             this.physics.add.collider(player, bombs, hitBomb, null, this);
+
         }
 
         function update() {
             if (gameOver) {
                 return;
             }
+            y += 0.05;
+            size += 0.05;
 
+            rect1.y = rect2.y = y;
+            rect1.setSize(size);
+            rect2.setSize(size);
+
+            Phaser.Geom.Rectangle.FloorAll(rect2);
+
+            graphics.clear();
+            graphics.fillRectShape(rect1);
+            graphics.fillRectShape(rect2);
             stars.setVelocityX(60)
 
             if (cursors.left.isDown) {
@@ -192,8 +210,9 @@
             gameOver = true;
         }
 
-    </script>
 
-</body>
+    </script>
+</body onload="draw();">
+<canvas id="canvas" width="200" height="150"></canvas>
 
 </html>
