@@ -2,7 +2,7 @@ var game = new Phaser.Game(
     1024, 598,
     Phaser.CANVAS,
     'game-canvas',
-    { preload: preload, create: create, render: render, update: update },
+    {preload: preload, create: create, render: render, update: update},
     true
 );
 
@@ -30,6 +30,7 @@ var splash, speaker;
 var startAudio;
 
 const platformY = 400;
+const end = 4;
 
 function startGame() {
     game.physics.arcade.gravity.y = machineGravity;
@@ -96,7 +97,7 @@ function create() {
 
     initializeObjects();
 
-    count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
+    count = game.add.text(670, 543, countInt, {fontSize: '15px', fill: '#000'});
     createMachines();
     const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
@@ -119,7 +120,7 @@ function updateGoalObject() {
     if (!gameStarted || (goalObject && goalObject.level === currentLevel)) return;
     if (goalObject) goalObject.graphics.destroy();
     const matrix = levels[currentLevel].salida
-    goalObject = { level: currentLevel, matrix };
+    goalObject = {level: currentLevel, matrix};
     goalObject.graphics = game.add.graphics(0, 0);
 
     const size = 20;
