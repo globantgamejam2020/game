@@ -52,14 +52,18 @@ function create() {
     count = game.add.text(670, 543, "0" + countInt, { fontSize: '15px', fill: '#000' });
     createObjects();
     objects.push({ x: objX, matrix: levels[currentLevel].entrada })
-    createMachines(createSwitches());
+    createMachines();
+    const machineObjects = createSwitches()
+    for (let i = 0; i < machineObjects.length; i += 1) {
+        machines[i].machineObject = machineObjects[i];
+    }
 }
 
 function update() {
     updateMachines();
     for (const object of objects) {
         checkCollision(object);
-        updateObject(object.matrix);
+        updateObject(object);
     }
 }
 

@@ -1,7 +1,7 @@
 import {CellState, Machine} from './types';
 
 class MachineSumaResta implements Machine {
-    private on = true;
+    private on = false;
     private resta = false;
 
     private center = false;
@@ -90,7 +90,7 @@ class MachineSumaResta implements Machine {
     }
 
     reset() {
-        this.on = true;
+        this.on = false;
         this.resta = false;
         this.center = false;
         this.corners = false;
@@ -103,6 +103,7 @@ class MachineSumaResta implements Machine {
     }
 
     transform(objectState: CellState[][]) {
+        if (!this.on) return;
         const coordinates = this.getCoordinates();
         for (const [x, y] of coordinates) {
             if (this.resta) objectState[x][y].active = false;
@@ -115,7 +116,7 @@ class MachineSumaResta implements Machine {
 
     getCoordinates() {
         let count = 0;
-        const aux: Array<Array<number>> = new Array(3).map(() => new Array(3).fill(0));
+        const aux = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         if (this.row_0) {
             count += 1;
             aux[0].forEach((_, index, arr) => arr[index] += 1)
@@ -158,7 +159,8 @@ class MachineSumaResta implements Machine {
             count += 1;
             aux[1][1] += 1;
         }
-        const result = [];
+        const result: [number, number][] = [];
+        if (count === 0) return result;
         for (let i = 0; i < 3; i += 1)
             for (let j = 0; j < 3; j += 1)
                 if (aux[i][j] === count)

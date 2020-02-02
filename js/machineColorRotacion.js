@@ -11,7 +11,7 @@ var Colors;
 })(Colors || (Colors = {}));
 class MachineColorRotacion {
     constructor() {
-        this.on = true;
+        this.on = false;
         this.color = false;
         this.rotar = false;
         this.reverseColor = false;
@@ -36,24 +36,28 @@ class MachineColorRotacion {
         return [
             () => {
                 this.color = !this.color;
+                console.log('color');
                 return this.color;
             },
             () => {
                 this.rotar = !this.color;
+                console.log('color');
                 return this.rotar;
             },
             () => {
                 this.on = !this.on;
+                console.log('on');
                 return this.on;
             },
             () => {
                 this.reset();
+                console.log('reset');
                 return false;
             },
         ];
     }
     reset() {
-        this.on = true;
+        this.on = false;
         this.color = false;
         this.rotar = false;
         this.reverseColor = false;
@@ -69,35 +73,43 @@ class MachineColorRotacion {
         return [
             () => {
                 this.reverseRotate = !this.reverseRotate;
+                console.log('reverseRotate');
                 return this.reverseRotate;
             },
             () => {
                 this.rotate90 = !this.rotate90;
+                console.log('rotate90');
                 return this.rotate90;
             },
             () => {
                 this.rotate180 = !this.rotate180;
+                console.log('rotate180');
                 return this.rotate180;
             },
             () => {
                 this.rotate270 = !this.rotate270;
+                console.log('rotate270');
                 return this.rotate270;
             },
             ...[
                 () => {
                     this.reverseColor = !this.reverseColor;
+                    console.log('reverseColor');
                     return this.reverseColor;
                 },
                 () => {
                     this.colorR = !this.colorR;
+                    console.log('colorR');
                     return this.colorR;
                 },
                 () => {
                     this.colorG = !this.colorG;
+                    console.log('colorG');
                     return this.colorG;
                 },
                 () => {
                     this.colorB = !this.colorB;
+                    console.log('colorB');
                     return this.colorB;
                 },
             ].sort(() => Math.random() - 0.5)

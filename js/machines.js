@@ -14,8 +14,11 @@ var machines = [];
 // TODO: Check whether object got inside a machine
 function checkCollision(object) {
     for (const machine of machines)
-        if (object.x === machine.position.x)
+        if (object.x === machine.position.x) {
+            console.log(object.matrix);
             machine.machineObject.transform(object.matrix)
+            console.log(object.matrix);
+        }
 }
 
 /**
@@ -34,9 +37,7 @@ function createMachines(machineObjects) {
     machines.push(game.add.sprite(secondMachineX, machinesY, secondMachineName));
 
     machines[0].scale.setTo(0.7, 0.7);
-    machines[0].machineObject = machineObjects[0]
     machines[1].scale.setTo(0.7, 0.7);
-    machines[1].machineObject = machineObjects[1]
 
     game.physics.enable(machines[0], Phaser.Physics.ARCADE);
     game.physics.enable(machines[1], Phaser.Physics.ARCADE);

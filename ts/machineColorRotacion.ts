@@ -12,7 +12,7 @@ enum Colors {
 }
 
 class MachineColorRotacion implements Machine {
-    private on = true;
+    private on = false;
     private color = false;
     private rotar = false;
 
@@ -62,7 +62,7 @@ class MachineColorRotacion implements Machine {
     }
 
     reset() {
-        this.on = true;
+        this.on = false;
         this.color = false;
         this.rotar = false;
 
