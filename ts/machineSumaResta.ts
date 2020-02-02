@@ -113,6 +113,7 @@ class MachineSumaResta implements Machine {
         this.col_0 = false;
         this.col_1 = false;
         this.col_2 = false;
+        this.middles = false;
     }
 
     transform(objectState: CellState[][]) {
