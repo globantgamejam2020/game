@@ -15,12 +15,18 @@ const objY = 337;
 /**
  * Create object reference
  */
-function createObjects() {
-    if (objects && objects.length > 0) objects.forEach(o => o.graphics.destroy());
+
+function initializeObjects() {
     for (let i = 0; i < objectCount; i += 1) {
-        const object = { x: objX + objectDistance * i, matrix: copy(levels[currentLevel].entrada), size: objSize };
+        const object = { graphics: game.add.graphics(0, 0), size: objSize };
         objects.push(object);
-        object.graphics = game.add.graphics(0, 0);
+    }
+}
+
+function createObjects() {
+    for (let i = 0; i < objects.length; i += 1) {
+        objects[i].x = objX + objectDistance * i;
+        objects[i].matrix = copy(levels[currentLevel].entrada);
     }
 }
 

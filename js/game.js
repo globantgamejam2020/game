@@ -45,6 +45,7 @@ function startGame() {
     bgMusic.loop = true;
     bgMusic.volume = 0.25;
     bgMusic.play();
+    showNextLevel();
 }
 
 function preload() {
@@ -93,14 +94,14 @@ function create() {
 
     createEdges();
 
+    initializeObjects();
+
     count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
     createMachines();
     const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
         machines[i].machineObject = machineObjects[i];
     }
-
-    updateGoalObject();
 
     splash = game.add.image(0, 0, 'rrr_splash');
     game.add.image(0, 0, 'marco');
@@ -112,7 +113,6 @@ function create() {
     speaker = game.add.sprite(790, 410, 'speaker-anim', 5);
     let speaker_sound = speaker.animations.add('play-sound');
     speaker_sound.play(10, true);
-    showNextLevel();
 }
 
 function updateGoalObject() {
