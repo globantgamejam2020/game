@@ -118,6 +118,7 @@ function createSwitches() {
  * @param {*} aSwitch 
  */
 function onSwitchUp(aSwitch) {
+    game.sound.play('switchAction');
     aSwitch.functions.action();
     updateSwitches();
 }

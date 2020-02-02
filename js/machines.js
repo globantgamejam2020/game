@@ -15,6 +15,7 @@ var machines = [];
 function checkCollision(object) {
     for (const machine of machines)
         if (object.x === machine.position.x + 50) {
+            game.sound.play('machineAction');
             console.log(object.matrix);
             machine.machineObject.transform(object.matrix)
             console.log(object.matrix);

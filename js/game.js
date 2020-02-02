@@ -22,6 +22,8 @@ function preload() {
     preloadSwitches();
     preloadMachines();
     // this.load.audio('bg_music', 'sounds/bg-music.ogg'); // TODO: Music
+    this.load.audio('switchAction', 'sounds/switchAction.mp3');
+    this.load.audio('machineAction', 'sounds/machineAction.mp3');
     game.load.spritesheet('platform', 'assets/cinta.png', 201, 61, 2);
     game.load.image('bottom', 'assets/bottom.png');
 }
@@ -66,7 +68,6 @@ function update() {
         updateObject(object);
         checkSolution(object);
     }
-    updateSwitches();
 }
 
 function render() {
