@@ -1,6 +1,13 @@
 body {
     margin: 0;
-    background: #4b4b4b;
+    /* background: #4b4b4b; */
+    /* background: #fff url("../assets/page_bg.png") no-repeat fixed; */
+    /* background: url("../assets/page_bg.png") no-repeat center center fixed;  */
+    background: url("../assets/wall.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #game-canvas {
@@ -10,7 +17,7 @@ body {
     height: 598px;
     /* background-color: #000; */
 
-    background: #fff url("../assets/back.png") no-repeat;
+    /* background: #fff url("../assets/back.png") no-repeat; */
 
     position: absolute; /*it can be fixed too*/
     left:0; right:0;
