@@ -76,5 +76,10 @@ function updateMachines() {
         machines[1].body.moves = false;
         edges[0].body.moves = false;
         edges[1].body.moves = false;
+
+        // TODO: Ugly, move to switches.
+        for (let switchGroup of switches) {
+            switchGroup.setAll('body.gravity', 0);
+        }
     }
 }

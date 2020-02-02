@@ -1,8 +1,5 @@
 body {
     margin: 0;
-    /* background: #4b4b4b; */
-    /* background: #fff url("../assets/page_bg.png") no-repeat fixed; */
-    /* background: url("../assets/page_bg.png") no-repeat center center fixed;  */
     background: url("../assets/wall.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -11,20 +8,14 @@ body {
 }
 
 #game-canvas {
-    /* border: 5px solid #fff; */
-
     width: 1024px;
     height: 598px;
-    /* background-color: #000; */
 
-    /* background: #fff url("../assets/back.png") no-repeat; */
-
-    position: absolute; /*it can be fixed too*/
+    position: absolute;
     left:0; right:0;
     top:0; bottom:0;
     margin:auto;
 
-    /*this to solve "the content will not be cut when the window is smaller than the content": */
     max-width:100%;
     max-height:100%;
     overflow:auto;
