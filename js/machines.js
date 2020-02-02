@@ -32,8 +32,8 @@ function checkCollision(object) {
  */
 function preloadMachines() {
     game.load.image('palito', 'assets/palito.png');
-    game.load.image(firstMachineName, 'assets/maquina_1.png');
-    game.load.image(secondMachineName, 'assets/maquina_2.png');
+    game.load.image(firstMachineName, 'assets/maquina_1-editada.png');
+    game.load.image(secondMachineName, 'assets/maquina_2-editada.png');
 }
 
 /**

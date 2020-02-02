@@ -8,18 +8,25 @@ const posStep = 2;
 const objSize = 30;
 const objectCount = 3;
 
-const objX = -300;
+const objX = -450;
 const objectDistance = -550;
 const objY = 337;
 
 /**
  * Create object reference
  */
-function createObjects() {
+
+function initializeObjects() {
     for (let i = 0; i < objectCount; i += 1) {
-        const object = { x: objX + objectDistance * i, matrix: copy(levels[currentLevel].entrada), size: objSize };
+        const object = { graphics: game.add.graphics(0, 0), size: objSize };
         objects.push(object);
-        object.graphics = game.add.graphics(0, 0);
+    }
+}
+
+function createObjects() {
+    for (let i = 0; i < objects.length; i += 1) {
+        objects[i].x = objX + objectDistance * i;
+        objects[i].matrix = copy(levels[currentLevel].entrada);
     }
 }
 
@@ -59,7 +66,30 @@ function updateObject(object) {
 }
 
 function resetObject(object) {
+    if (checkSolution(object)) {
+        navigateToNextLevel();
+    };
     object.graphics.clear();
-    object.x = -350;
+    object.x = -370;
     object.matrix = copy(levels[currentLevel].entrada);
+    countInt -= 1;
+    if (countInt === 0) {
+        showYouLose();
+    }
+}
+
+function checkSolution(object) {
+    if (!goalObject || !goalObject.matrix) return;
+    let solved = true;
+    let i = 0;
+    let j = 0;
+
+    while (i < 3 && solved) {
+        while (j < 3 && solved) {
+            solved = object.matrix[i][j].active === goalObject.matrix[i][j].active && object.matrix[i][j].color === goalObject.matrix[i][j].color;
+            j++;
+        }
+        i++;
+    }
+    return solved;
 }
