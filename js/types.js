@@ -1,38 +1,110 @@
 const levels = [
     {
         entrada: [
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ],
         salida: [
-            [{ color: 0xffffff, active: false }, { color: 0xffffff, active: true }, { color: 0xffffff, active: false }],
-            [{ color: 0xffffff, active: false }, { color: 0xffffff, active: true }, { color: 0xffffff, active: false }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ]
     },
     {
         entrada: [
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: false }, { color: 0xffffff, active: false }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: false }, { color: 0xffffff, active: false }],
-            [{ color: 0xffffff, active: false }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ],
         salida: [
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: false }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: false }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: false }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ]
     },
     {
         entrada: [
-            [{ color: 0xffffff, active: false }, { color: 0xffffff, active: false }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: false }, { color: 0xffffff, active: false }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ],
         salida: [
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: false }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: false }, { color: 0xffffff, active: true }],
-            [{ color: 0xffffff, active: true }, { color: 0xffffff, active: true }, { color: 0xffffff, active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ]
     }
 ];

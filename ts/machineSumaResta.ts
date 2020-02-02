@@ -1,4 +1,4 @@
-import { CellState, Machine } from './types';
+import {CellState, Machine} from './types';
 
 class MachineSumaResta implements Machine {
     private on = false;
@@ -18,12 +18,12 @@ class MachineSumaResta implements Machine {
         return [
             () => {
                 this.resta = !this.resta;
-                console.log('resta');
+                console.log(`resta: ${this.resta}`);
                 return this.resta
             },
             () => {
                 this.resta = !this.resta;
-                console.log('resta');
+                console.log(`resta: ${this.resta}`);
                 return this.resta
             },
             () => {

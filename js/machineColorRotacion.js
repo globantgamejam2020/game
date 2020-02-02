@@ -40,8 +40,8 @@ class MachineColorRotacion {
                 return this.color;
             },
             () => {
-                this.rotar = !this.color;
-                console.log('color');
+                this.rotar = !this.rotar;
+                console.log('rotar');
                 return this.rotar;
             },
             () => {
@@ -134,13 +134,13 @@ class MachineColorRotacion {
         }
     }
     paint(state) {
-        let color = '#';
+        let color = '';
         color += this.colorR ? 'ff' : '00';
         color += this.colorG ? 'ff' : '00';
         color += this.colorB ? 'ff' : '00';
         for (let i = 0; i < 3; i++)
             for (let j = 0; j < 3; j++)
-                state[i][j].color = color;
+                state[i][j].color = parseInt(`0x${color}`, 16);
     }
     rotate(state, times) {
         const timesNeeded = times % 4;

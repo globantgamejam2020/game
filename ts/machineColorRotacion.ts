@@ -44,8 +44,8 @@ class MachineColorRotacion implements Machine {
                 return this.color
             },
             () => {
-                this.rotar = !this.color;
-                console.log('color');
+                this.rotar = !this.rotar;
+                console.log('rotar');
                 return this.rotar
             },
             () => {

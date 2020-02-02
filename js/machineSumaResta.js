@@ -16,12 +16,12 @@ class MachineSumaResta {
         return [
             () => {
                 this.resta = !this.resta;
-                console.log('resta');
+                console.log(`resta: ${this.resta}`);
                 return this.resta;
             },
             () => {
                 this.resta = !this.resta;
-                console.log('resta');
+                console.log(`resta: ${this.resta}`);
                 return this.resta;
             },
             () => {
