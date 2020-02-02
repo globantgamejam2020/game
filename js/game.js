@@ -2,7 +2,7 @@ var game = new Phaser.Game(
     1024, 598,
     Phaser.CANVAS,
     'game-canvas',
-    { preload: preload, create: create, render: render, update: update },
+    {preload: preload, create: create, render: render, update: update},
     true
 );
 
@@ -49,11 +49,11 @@ function create() {
     // anim.onLoop.add(animationLooped, this);
     // anim.onComplete.add(animationStopped, this);
 
-    count = game.add.text(670, 543, "0" + countInt, { fontSize: '15px', fill: '#000' });
+    count = game.add.text(670, 543, "0" + countInt, {fontSize: '15px', fill: '#000'});
     createObjects();
-    objects.push({ x: objX, matrix: levels[currentLevel].entrada })
+    objects.push({x: objX, matrix: levels[currentLevel].entrada, solution: levels[currentLevel].salida});
     createMachines();
-    const machineObjects = createSwitches()
+    const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
         machines[i].machineObject = machineObjects[i];
     }
@@ -64,6 +64,7 @@ function update() {
     for (const object of objects) {
         checkCollision(object);
         updateObject(object);
+        checkSolution(object);
     }
     updateSwitches();
 }
@@ -74,4 +75,14 @@ function render() {
     } else {
         game.debug.text(debugText, 32, 32);
     }
+}
+
+function checkSolution(object) {
+    // console.log('[SOLUTION]', object);
+    for (let i = 0; i < 3; i++)
+        for (let j = 0; j < 3; j++)
+            if (object.matrix[i][j] === object.solution[i][j])
+                console.info('Llegaste a la solucion');
+            else
+                console.info('No sabes nada');
 }
