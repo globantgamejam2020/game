@@ -21,6 +21,8 @@ var bottom;
 var platformX = 0;
 var platformStep = 2;
 
+var goalObject;
+
 const platformY = 400;
 
 function preload() {
@@ -63,6 +65,7 @@ function create() {
 
     count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
     createObjects();
+    createGoalObject(currentLevel);
     createMachines();
     const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
@@ -70,7 +73,10 @@ function create() {
     }
 
     game.add.image(0, 0, 'marco');
-    // game.add.sprite(0, 0, 'marco')
+}
+
+function createGoalObject() {
+    goalObject = { level: currentLevel, ...levels[currentLevel].salida }
 }
 
 function update() {

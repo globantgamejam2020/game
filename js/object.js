@@ -17,10 +17,21 @@ const objY = 337;
  */
 function createObjects() {
     for (let i = 0; i < objectCount; i += 1) {
-        const object = { x: objX + objectDistance * i, matrix: levels[currentLevel].entrada, solution: levels[currentLevel].salida };
+        const object = { x: objX + objectDistance * i, matrix: copy(levels[currentLevel].entrada), solution: levels[currentLevel].salida, size: objSize };
         objects.push(object);
         object.graphics = game.add.graphics(0, 0);
     }
+}
+
+function copy(matrix) {
+    const result = [];
+    for (let i = 0; i < 3; i += 1) {
+        const line = [];
+        for (let j = 0; j < 3; j += 1)
+            line.push({ ...matrix[i][j] });
+        result.push(line);
+    }
+    return result;
 }
 
 /**
@@ -35,11 +46,12 @@ function updateObject(object) {
     }
     object.x = object.x + posStep;
     object.graphics.clear();
+    const size = object.size;
     for (var r = 0; r < 3; r++) {
         for (var c = 0; c < 3; c++) {
             if (matrix[c][r].active) {
                 object.graphics.beginFill(matrix[c][r].color);
-                object.graphics.drawRect((objSize * r) + object.x, objY + (objSize * c), objSize, objSize);
+                object.graphics.drawRect((size * r) + object.x, objY + (size * c), size, size);
             }
         }
     }
@@ -48,5 +60,6 @@ function updateObject(object) {
 
 function resetObject(object) {
     object.graphics.clear();
-    object.x = objX;
+    object.x = -350;
+    object.matrix = copy(levels[currentLevel].entrada);
 }
