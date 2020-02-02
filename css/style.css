@@ -1,16 +1,16 @@
 body {
     margin: 0;
-    background: #000;
+    background: #4b4b4b;
 }
 
 #game-canvas {
     /* border: 5px solid #fff; */
 
-    width: 800px;
+    width: 1200px;
     height: 600px;
     background-color: #000;
 
-    position:absolute; /*it can be fixed too*/
+    position: absolute; /*it can be fixed too*/
     left:0; right:0;
     top:0; bottom:0;
     margin:auto;

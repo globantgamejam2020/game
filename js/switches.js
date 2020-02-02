@@ -1,6 +1,11 @@
+/**
+ * Handles all three switches and offers
+ * utils methods for matrix conversion
+ */
+
 // Start position
-const switchStartRow = 150;
-const switchStartColumn = 64;
+const switchStartRow = 200;
+const switchStartColumn = 250;
 
 // Switches textures references
 const switchOffTexture = "switch-off";
@@ -14,6 +19,22 @@ const switchVMargin = 50;
 // Sets of switches
 var switches = [];
 var machines = [];
+
+/**
+ * Preload for switches
+ */
+function preloadSwitches() {
+    game.load.image(switchOnTexture, 'assets/switch_on.png');
+    game.load.image(switchOffTexture, 'assets/switch_off.png');
+}
+
+/**
+ * Toggles switches visibility
+ * @param {*} setNumber 
+ */
+function toggleSwitches(setNumber) {
+    switches[setNumber].alpha = switches[setNumber].alpha != 0 ? 0 : 1;
+}
 
 /**
  * Return reference to a switch
