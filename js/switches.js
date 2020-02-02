@@ -18,6 +18,7 @@ const switchVMargin = 50;
 
 // Sets of switches
 var switches = [];
+var machines = [];
 
 /**
  * Preload for switches
@@ -85,7 +86,7 @@ function switchesToMatrix(setNumber) {
             row = [];
         }
     }
-    return matrix;  
+    return matrix;
 }
 
 /**
@@ -93,25 +94,44 @@ function switchesToMatrix(setNumber) {
  * @param {*} switches 
  * @param {*} setNumber 
  */
-function createSetOfSwitches(switches, setNumber) {
+function createSetOfSwitchesMachineA(switches) {
     var aSwitch;
-    for (var i = 0; i < 16; i++) {
-        if (i < 4) {
-            aSwitch = switches.create(switchStartColumn + (i * switchHMargin) + (setPadding * setNumber), switchStartRow, switchOffTexture);
-            aSwitch.coords = [0, i];
-        } else if (i < 8) {
-            aSwitch = switches.create(switchStartColumn + ((i - 4) * switchHMargin) + (setPadding * setNumber), switchStartRow + switchVMargin, switchOffTexture);
-            aSwitch.coords = [1, i - 4];
-        } else if (i < 12) {
-            aSwitch = switches.create(switchStartColumn + ((i - 8) * switchHMargin) + (setPadding * setNumber), switchStartRow + switchVMargin * 2, switchOffTexture);
-            aSwitch.coords = [2, i - 8];
-        } else {
-            aSwitch = switches.create(switchStartColumn + ((i - 12) * switchHMargin) + (setPadding * setNumber), switchStartRow + switchVMargin * 3, switchOffTexture);
-            aSwitch.coords = [3, i - 12];
-        }
-        aSwitch.name = `switch${setNumber}-child-` + i;
+    let machine = new MachineSumaResta();
+    machines.push(machine);
+    let actions = machine.getActions();
+    for (var i = 0; i < 4; i++) {
+        aSwitch = switches.create(switchStartColumn - 25 + (i * switchHMargin), switchStartRow, switchOffTexture);
         aSwitch.state = false;
-        aSwitch.id = [setNumber, i];
+        aSwitch.action = actions[i];
+    }
+    let variants = machine.getVariants();
+    for (var i = 0; i < 9; i++) {
+        if (i < 3) {
+            aSwitch = switches.create(switchStartColumn + (i * switchHMargin), switchStartRow + switchVMargin, switchOffTexture);
+        } else if (i < 6) {
+            aSwitch = switches.create(switchStartColumn + ((i - 3) * switchHMargin), switchStartRow + switchVMargin * 2, switchOffTexture);
+        } else {
+            aSwitch = switches.create(switchStartColumn + ((i - 6) * switchHMargin), switchStartRow + switchVMargin * 3, switchOffTexture);
+        }
+        aSwitch.state = false;
+        aSwitch.action = variants[i];
+    }
+}
+
+function createSetOfSwitchesMachineB(switches) {
+    var aSwitch;
+    const column = switchStartColumn - 25;
+    for (var i = 0; i < 4; i++) {
+        aSwitch = switches.create(column + (i * switchHMargin), switchStartRow - 10, switchOffTexture);
+        aSwitch.state = false;
+    }
+    for (var i = 0; i < 8; i++) {
+        if (i < 4) {
+            aSwitch = switches.create(column + (i * switchHMargin), switchStartRow + switchVMargin, switchOffTexture);
+        } else {
+            aSwitch = switches.create(column + ((i - 4) * switchHMargin), switchStartRow + switchVMargin * 2, switchOffTexture);
+        }
+        aSwitch.state = false;
     }
 }
 
@@ -132,25 +152,21 @@ function createSwitchesEvents(switches) {
 function createSwitches() {
     switches.push(game.add.group());
     switches.push(game.add.group());
-    switches.push(game.add.group());
 
-    for (var i = 0; i < switches.length; i++) {
-        // This will automatically inputEnable all children added to both Groups
-        switches[i].inputEnableChildren = true;
+    switches[0].inputEnableChildren = true;
+    createSetOfSwitchesMachineA(switches[0]);
+    createSwitchesEvents(switches[0]);
 
-        // Add set of switches
-        createSetOfSwitches(switches[i], i);
-
-        // Add events
-        createSwitchesEvents(switches[i]);
-    }
+    /*switches[1].inputEnableChildren = true;
+    createSetOfSwitchesMachineB(switches[1]);
+    createSwitchesEvents(switches[1]);*/
 }
 
 /**
  * Event on down
  * @param {*} aSwitch 
  */
-function onSwitchDown (aSwitch) {
+function onSwitchDown(aSwitch) {
     // debugText = "onDown: " + aSwitch.name;
     // aSwitch.tint = 0x00ff00;
 }
@@ -159,7 +175,7 @@ function onSwitchDown (aSwitch) {
  * Event on over
  * @param {*} aSwitch 
  */
-function onSwitchOver (aSwitch) {
+function onSwitchOver(aSwitch) {
     // debugText = "onOver: " + aSwitch.name;
     // aSwitch.tint = 0xff0000;
 }
@@ -168,7 +184,7 @@ function onSwitchOver (aSwitch) {
  * Event on out
  * @param {*} aSwitch 
  */
-function onSwitchOut (aSwitch) {
+function onSwitchOut(aSwitch) {
     // aSwitch.tint = 0xffffff;
 }
 
@@ -176,11 +192,10 @@ function onSwitchOut (aSwitch) {
  * Event on up
  * @param {*} aSwitch 
  */
-function onSwitchUp (aSwitch) {
+function onSwitchUp(aSwitch) {
     aSwitch.state = !aSwitch.state;
     updateSwitchState(aSwitch);
-
-    debugText = `onUp - Changed switch ${aSwitch.name} (${aSwitch.id}) state to ${aSwitch.state}`;
+    aSwitch.action();
 }
 
 /**
