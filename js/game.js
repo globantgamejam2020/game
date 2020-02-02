@@ -24,15 +24,21 @@ var platformStep = 2;
 var goalObject;
 
 var gameStarted = false;
-var enterGame, splash, speaker;
+var enterGame = [];
+var splash, speaker;
+
+var startAudio;
 
 const platformY = 400;
 
-function startGame(trigger) {
+function startGame() {
     game.physics.arcade.gravity.y = machineGravity;
     gameStarted = true;
     enterGame.alpha = 0;
     splash.alpha = 0;
+    speaker.alpha = 0;
+
+    startAudio.stop();
 
     // Background music
     bgMusic = game.sound.add('bg_music');
@@ -48,6 +54,8 @@ function preload() {
     game.load.audio('bg_music', 'sounds/fabricaEspacial.wav');
     game.load.audio('switchAction', 'sounds/switchAction.mp3');
     game.load.audio('machineAction', 'sounds/machineAction.mp3');
+    game.load.audio('start_audio', 'sounds/audio.wav');
+
     game.load.image('bottom', 'assets/bottom.png');
     game.load.image('marco', 'assets/marco.png');
     game.load.image('back_simple', 'assets/back_simple.png');
@@ -61,6 +69,11 @@ function preload() {
 }
 
 function create() {
+
+    startAudio = game.sound.add('start_audio');
+    startAudio.volume = 1.0;
+    startAudio.play();
+
     game.camera.onFadeComplete.add(showNextLevel, this);
     game.add.image(0, 0, 'back_simple');
     bottom = game.add.sprite(20, 420, 'bottom');
@@ -87,18 +100,18 @@ function create() {
         machines[i].machineObject = machineObjects[i];
     }
 
+    updateGoalObject();
+
     splash = game.add.image(0, 0, 'rrr_splash');
     game.add.image(0, 0, 'marco');
 
     enterGame = game.add.sprite(350, 410, 'enter_game', 5);
     enterGame.inputEnabled = true;
-    enterGame.onInputUp.add(startGame, this);
-    // enterGame.inputEnableChildren = true;
-    // enterGame.onChildInputUp.add(startGame, this);
+    enterGame.events.onInputDown.add(startGame, this);
 
     speaker = game.add.sprite(790, 410, 'speaker-anim', 5);
-    speaker.animations.add('play-sound');
-    speaker.play(10, true); // TODO: fix
+    let speaker_sound = speaker.animations.add('play-sound');
+    speaker_sound.play(10, true);
     showNextLevel();
 }
 
@@ -123,7 +136,7 @@ function updateGoalObject() {
 
 function update() {
     if (!gameStarted) {
-        startGame(undefined);
+        // startGame(undefined);
     } else {
         updateMachines();
         for (const object of objects) {
