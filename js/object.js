@@ -6,16 +6,21 @@
 const posLimit = 1200;
 const posStep = 2;
 const objSize = 30;
+const objectCount = 3;
 
-const objX = -80;
+const objX = -300;
+const objectDistance = -550;
 const objY = 337;
 
 /**
  * Create object reference
  */
 function createObjects() {
-    var graphics = game.add.graphics(0, 0);
-    window.graphics = graphics;
+    for (let i = 0; i < objectCount; i += 1) {
+        const object = { x: objX + objectDistance * i, matrix: levels[currentLevel].entrada, solution: levels[currentLevel].salida };
+        objects.push(object);
+        object.graphics = game.add.graphics(0, 0);
+    }
 }
 
 /**
@@ -24,16 +29,24 @@ function createObjects() {
  */
 function updateObject(object) {
     const matrix = object.matrix;
-    object.x = object.x >= posLimit ? objX : object.x + posStep;
-    // console.log(object.x);
-    graphics.clear();
+    if (object.x >= posLimit) {
+        resetObject(object);
+        return;
+    }
+    object.x = object.x + posStep;
+    object.graphics.clear();
     for (var r = 0; r < 3; r++) {
         for (var c = 0; c < 3; c++) {
             if (matrix[c][r].active) {
-                graphics.beginFill(matrix[c][r].color);
-                graphics.drawRect((objSize * r) + object.x, objY + (objSize * c), objSize, objSize);
+                object.graphics.beginFill(matrix[c][r].color);
+                object.graphics.drawRect((objSize * r) + object.x, objY + (objSize * c), objSize, objSize);
             }
         }
     }
-    graphics.endFill();
+    object.graphics.endFill();
+}
+
+function resetObject(object) {
+    object.graphics.clear();
+    object.x = objX;
 }

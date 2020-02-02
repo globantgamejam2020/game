@@ -2,7 +2,7 @@ var game = new Phaser.Game(
     1024, 598,
     Phaser.CANVAS,
     'game-canvas',
-    {preload: preload, create: create, render: render, update: update},
+    { preload: preload, create: create, render: render, update: update },
     true
 );
 
@@ -64,7 +64,6 @@ function create() {
 
     count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
     createObjects();
-    objects.push({x: objX, matrix: levels[currentLevel].entrada, solution: levels[currentLevel].salida});
     createMachines();
     const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {

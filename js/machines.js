@@ -24,7 +24,6 @@ function checkCollision(object) {
         if (object.x === machine.position.x + 50) {
             game.sound.play('machineAction');
             machine.machineObject.transform(object.matrix)
-            // console.log(object.matrix);
         }
 }
 
@@ -55,7 +54,6 @@ function createEdges() {
 /**
  * Create logic for machines
  */
-//function createMachines(machineObjects) {
 function createMachines() {
 
     machines.push(game.add.sprite(firstMachineX, machinesY, firstMachineName));
