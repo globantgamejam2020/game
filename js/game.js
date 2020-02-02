@@ -6,6 +6,9 @@ var game = new Phaser.Game(
     true
 );
 
+var currentLevel = 0;
+var objects = [];
+
 var debugText = '';
 var bgMusic; // TODO
 var anims = [];
@@ -46,43 +49,18 @@ function create() {
     // anim.onLoop.add(animationLooped, this);
     // anim.onComplete.add(animationStopped, this);
 
-    // Set initial count
     count = game.add.text(670, 543, "0" + countInt, { fontSize: '15px', fill: '#000' });
-
-    createObject();
-    createMachines();
-    createSwitches();
+    createObjects();
+    objects.push({ x: objX, matrix: levels[currentLevel].entrada })
+    createMachines(createSwitches());
 }
 
 function update() {
-
-    // Update count
-    count.setText(countInt);
-
-    // TODO: test, remove
-    var randMatrix = [
-        [
-            [{color: 0xfff, active: true}, {color: 0x4b, active: false}, {color: 0xfff, active: true}],
-            [{color: 0xfff, active: false}, {color: 0x4b, active: true}, {color: 0x4b, active: true}],
-            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
-        ],
-        [
-            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xfff, active: true}],
-            [{color: 0x4b, active: true}, {color: 0x4b, active: true}, {color: 0xfff, active: true}],
-            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
-        ],
-        [
-            [{color: 0xfff, active: false}, {color: 0xfff, active: true}, {color: 0xfff, active: true}],
-            [{color: 0xFFFF00, active: false}, {color: 0x4b, active: true}, {color: 0x4b, active: false}],
-            [{color: 0xfff, active: true}, {color: 0xfff, active: true}, {color: 0xFFFF00, active: true}]
-        ]
-    ]
-
     updateMachines();
-
-    // TODO: Test. Use actual matrix.
-    //updateObject(randMatrix[Math.floor(Math.random() * 2)]);
-    updateObject(randMatrix[0]);
+    for (const object of objects) {
+        checkCollision(object);
+        updateObject(object.matrix);
+    }
 }
 
 function render() {

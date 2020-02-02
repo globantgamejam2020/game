@@ -9,7 +9,6 @@ var Colors;
     Colors["cyan"] = "#00ffff";
     Colors["magenta"] = "#ff00ff";
 })(Colors || (Colors = {}));
-
 class MachineColorRotacion {
     constructor() {
         this.on = true;
@@ -24,7 +23,6 @@ class MachineColorRotacion {
         this.rotate180 = false;
         this.rotate270 = false;
     }
-
     static rotateOnce(objectState) {
         for (let i = 0; i < 2; i++) {
             const value = objectState[0][i];
@@ -34,7 +32,6 @@ class MachineColorRotacion {
             objectState[i][2] = value;
         }
     }
-
     getActions() {
         return [
             () => {
@@ -55,7 +52,6 @@ class MachineColorRotacion {
             },
         ];
     }
-
     reset() {
         this.on = true;
         this.color = false;
@@ -69,7 +65,6 @@ class MachineColorRotacion {
         this.rotate180 = false;
         this.rotate270 = false;
     }
-
     getVariants() {
         return [
             () => {
@@ -108,16 +103,17 @@ class MachineColorRotacion {
             ].sort(() => Math.random() - 0.5)
         ];
     }
-
     transform(objectState) {
         if (!this.on)
             return;
         if (this.rotar) {
             if (this.rotate90) {
                 this.rotate(objectState, (this.reverseRotate) ? 3 : 1);
-            } else if (this.rotate180) {
+            }
+            else if (this.rotate180) {
                 this.rotate(objectState, 2);
-            } else if (this.rotate270) {
+            }
+            else if (this.rotate270) {
                 this.rotate(objectState, (this.reverseRotate) ? 1 : 3);
             }
         }
@@ -125,7 +121,6 @@ class MachineColorRotacion {
             this.paint(objectState);
         }
     }
-
     paint(state) {
         let color = '#';
         color += this.colorR ? 'ff' : '00';
@@ -135,7 +130,6 @@ class MachineColorRotacion {
             for (let j = 0; j < 3; j++)
                 state[i][j].color = color;
     }
-
     rotate(state, times) {
         const timesNeeded = times % 4;
         for (let i = 0; i < timesNeeded; i += 1)

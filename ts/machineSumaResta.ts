@@ -1,44 +1,4 @@
-import {CellState, Machine} from './types';
-
-const objetos = [
-    {
-        entrada: [
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}],
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}],
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
-        ],
-        salida: [
-            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: false}],
-            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: false}],
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
-        ]
-    },
-    {
-        entrada: [
-            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: false}],
-            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: false}],
-            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: true}]
-        ],
-        salida: [
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: false}],
-            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
-            [{color: 'black', active: false}, {color: 'black', active: true}, {color: 'black', active: true}]
-        ]
-    },
-    {
-        entrada: [
-            [{color: 'black', active: false}, {color: 'black', active: false}, {color: 'black', active: true}],
-            [{color: 'black', active: false}, {color: 'black', active: false}, {color: 'black', active: true}],
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
-        ],
-        salida: [
-            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
-            [{color: 'black', active: true}, {color: 'black', active: false}, {color: 'black', active: true}],
-            [{color: 'black', active: true}, {color: 'black', active: true}, {color: 'black', active: true}]
-        ]
-    }
-];
-
+import { CellState, Machine } from './types';
 
 class MachineSumaResta implements Machine {
     private on = true;

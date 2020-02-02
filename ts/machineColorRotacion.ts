@@ -1,4 +1,4 @@
-import {CellState, Machine} from './types';
+import { CellState, Machine } from './types';
 
 enum Colors {
     red = "#ff0000",
