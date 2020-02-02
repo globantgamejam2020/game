@@ -4,17 +4,17 @@
  */
 
 // Start position
-const switchStartRow = 200;
-const switchStartColumn = 250;
+const switchStartRow = -122;
+const switchStartColumn = 275;
 
 // Switches textures references
 const switchOffTexture = "switch-on";
 const switchOnTexture = "switch-off";
 
 // Padding/margin
-const setPadding = 200;
-const switchHMargin = 50;
-const switchVMargin = 50;
+const setPadding = 50;
+const switchHMargin = 35;
+const switchVMargin = 40;
 
 // Sets of switches
 var switches = [];
@@ -52,11 +52,11 @@ function createSetOfSwitchesMachineA(switches) {
     let variants = machine.getVariants();
     for (var i = 0; i < 9; i++) {
         if (i < 3) {
-            aSwitch = switches.create(switchStartColumn + (i * switchHMargin), switchStartRow + switchVMargin, switchOffTexture);
+            aSwitch = switches.create(switchStartColumn + (i * (switchHMargin + 5)) - 15, switchStartRow + 63 + switchVMargin, switchOffTexture);
         } else if (i < 6) {
-            aSwitch = switches.create(switchStartColumn + ((i - 3) * switchHMargin), switchStartRow + switchVMargin * 2, switchOffTexture);
+            aSwitch = switches.create(switchStartColumn + ((i - 3) * (switchHMargin + 5)) - 15, switchStartRow + 63 + switchVMargin * 2, switchOffTexture);
         } else {
-            aSwitch = switches.create(switchStartColumn + ((i - 6) * switchHMargin), switchStartRow + switchVMargin * 3, switchOffTexture);
+            aSwitch = switches.create(switchStartColumn + ((i - 6) * (switchHMargin + 5)) - 15, switchStartRow + 63 + switchVMargin * 3, switchOffTexture);
         }
         aSwitch.state = false;
         aSwitch.functions = variants[i];
@@ -110,6 +110,12 @@ function createSwitches() {
     switches[1].inputEnableChildren = true;
     machines.push(createSetOfSwitchesMachineB(switches[1]));
     createSwitchesEvents(switches[1]);
+
+    // Initially enable gravity for switches
+    game.physics.enable(switches[0], Phaser.Physics.ARCADE);
+    game.physics.enable(switches[1], Phaser.Physics.ARCADE);
+    game.physics.arcade.gravity.y = machineGravity;
+
     return machines;
 }
 
