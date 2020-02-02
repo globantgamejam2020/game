@@ -8,7 +8,7 @@ const posStep = 2;
 const objSize = 30;
 const objectCount = 3;
 
-const objX = -300;
+const objX = -450;
 const objectDistance = -550;
 const objY = 337;
 
@@ -16,6 +16,7 @@ const objY = 337;
  * Create object reference
  */
 function createObjects() {
+    if (objects && objects.length > 0) objects.forEach(o => o.graphics.destroy());
     for (let i = 0; i < objectCount; i += 1) {
         const object = { x: objX + objectDistance * i, matrix: copy(levels[currentLevel].entrada), size: objSize };
         objects.push(object);
@@ -59,7 +60,26 @@ function updateObject(object) {
 }
 
 function resetObject(object) {
+    if (checkSolution(object)) {
+        navigateToNextLevel();
+    };
     object.graphics.clear();
-    object.x = -350;
+    object.x = -370;
     object.matrix = copy(levels[currentLevel].entrada);
+}
+
+function checkSolution(object) {
+    if (!goalObject || !goalObject.matrix) return;
+    let solved = true;
+    let i = 0;
+    let j = 0;
+
+    while (i < 3 && solved) {
+        while (j < 3 && solved) {
+            solved = object.matrix[i][j].active === goalObject.matrix[i][j].active && object.matrix[i][j].color === goalObject.matrix[i][j].color;
+            j++;
+        }
+        i++;
+    }
+    return solved;
 }

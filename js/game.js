@@ -6,7 +6,7 @@ var game = new Phaser.Game(
     true
 );
 
-var currentLevel = 0;
+var currentLevel = -1;
 var objects = [];
 
 var debugText = '';
@@ -61,6 +61,8 @@ function preload() {
     game.load.image('back_simple', 'assets/back_simple.png');
     game.load.image('rrr_splash', 'assets/RRR.png');
     game.load.image('enter_game', 'assets/enter_game.png');
+    game.load.image('enter_game', 'assets/RRR_VICTORIA.png');
+    game.load.image('enter_game', 'assets/RRR_DERROTA.png');
 
     game.load.spritesheet('platform', 'assets/cinta.png', 201, 61, 2);
     game.load.spritesheet('speaker-anim', 'assets/speaker.png', 154, 158, 2);
@@ -91,7 +93,6 @@ function create() {
     createEdges();
 
     count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
-    createObjects();
     createMachines();
     const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
@@ -107,15 +108,15 @@ function create() {
     enterGame.inputEnabled = true;
     enterGame.events.onInputDown.add(startGame, this);
 
-    //speaker = game.add.sprite(790, 410, 'speaker-anim', 5);
     speaker = game.add.sprite(790, 410, 'speaker-anim', 5);
-    speaker_animation = speaker.animations.add('play-sound');
-    speaker_animation.play(10, true);
+    let speaker_sound = speaker.animations.add('play-sound');
+    speaker_sound.play(10, true);
 
+    navigateToNextLevel();
 }
 
 function updateGoalObject() {
-    if (goalObject && goalObject.level === currentLevel) return;
+    if (!gameStarted || (goalObject && goalObject.level === currentLevel)) return;
     if (goalObject) goalObject.graphics.destroy();
     const matrix = levels[currentLevel].salida
     goalObject = { level: currentLevel, matrix };
@@ -141,9 +142,8 @@ function update() {
         for (const object of objects) {
             checkCollision(object);
             updateObject(object);
-            checkSolution(object);
         }
-    
+
         platformX += platformStep;
         // console.log(platformX);
         if (platformX >= 278) {
@@ -159,7 +159,6 @@ function update() {
                 platform.x += platformStep;
         }
     }
-    updateGoalObject();
 }
 
 function render() {
@@ -170,23 +169,16 @@ function render() {
     }
 }
 
-function checkSolution(object) {
-    if (!goalObject || !goalObject.matrix) return;
-    let solved = true;
-    let i = 0;
-    let j = 0;
-
-    while (i < 3 && solved) {
-        while (j < 3 && solved) {
-            solved = object.matrix[i][j].active === goalObject.matrix[i][j].active && object.matrix[i][j].color === goalObject.matrix[i][j].color;
-            j++;
-        }
-        i++;
+function navigateToNextLevel() {
+    currentLevel += 1;
+    if (currentLevel === end) {
+        showSuccess();
     }
+    updateGoalObject();
+    createObjects();
+    countInt = 35;
+}
 
-    // TODO: esto tiene que cambiar algo en el juego... Sumar un contador o whatever.
-    if (solved)
-        console.info('Llegaste a la solucion');
-    else
-        console.info('No sabes nada');
+function showSuccess() {
+    game.add.sprite(0, 0, 'RRR_VICTORIA', 5);
 }
