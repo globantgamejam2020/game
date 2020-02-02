@@ -12,7 +12,7 @@ const switchOffTexture = "switch-off";
 const switchOnTexture = "switch-on";
 
 // Padding/margin
-const setPadding = 250;
+const setPadding = 200;
 const switchHMargin = 50;
 const switchVMargin = 50;
 
