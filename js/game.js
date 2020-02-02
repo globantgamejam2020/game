@@ -45,11 +45,7 @@ function create() {
         anims[i + 1].play(10, true);
     }
 
-    // anim.onStart.add(animationStarted, this);
-    // anim.onLoop.add(animationLooped, this);
-    // anim.onComplete.add(animationStopped, this);
-
-    count = game.add.text(670, 543, "0" + countInt, { fontSize: '15px', fill: '#000' });
+    count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
     createObjects();
     objects.push({ x: objX, matrix: levels[currentLevel].entrada })
     createMachines(createSwitches());
