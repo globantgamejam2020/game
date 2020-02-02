@@ -109,11 +109,22 @@ function render() {
 }
 
 function checkSolution(object) {
-    // console.log('[SOLUTION]', object);
-    for (let i = 0; i < 3; i++)
-        for (let j = 0; j < 3; j++)
-            if (object.matrix[i][j] === object.solution[i][j])
-                console.info('Llegaste a la solucion');
-            else
-                console.info('No sabes nada');
+    let solved = true;
+    let i = 0;
+    let j = 0;
+
+    while (i < 3 && solved) {
+        while (j < 3 && solved) {
+            solved = object.matrix[i][j].active === object.solution[i][j].active && object.matrix[i][j].color === object.solution[i][j].color;
+            j++;
+        }
+
+        i++;
+    }
+
+    // TODO: esto tiene que cambiar algo en el juego... Sumar un contador o whatever.
+    if (solved)
+        console.info('Llegaste a la solucion');
+    else
+        console.info('No sabes nada');
 }

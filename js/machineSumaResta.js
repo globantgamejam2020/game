@@ -177,10 +177,16 @@ class MachineSumaResta {
         const result = [];
         if (count === 0)
             return result;
+        let max = 0;
         for (let i = 0; i < 3; i += 1)
-            for (let j = 0; j < 3; j += 1)
-                if (aux[i][j] === count)
+            for (let j = 0; j < 3; j += 1) {
+                if (max < aux[i][j]) {
+                    result.splice(0);
+                    max = aux[i][j];
+                }
+                if (aux[i][j] === max)
                     result.push([i, j]);
+            }
         return result;
     }
 }
