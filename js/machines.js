@@ -1,9 +1,10 @@
-const maxY = 2.5;
+const maxY = 3.4;
 const firstMachineX = 200;
+const machinesY = -300;
 const secondMachineX = 700;
 const machineGravity = 80;
-const machineWidth = 310;
-const machineHeight = 310;
+const machineWidth = 329;
+const machineHeight = 665;
 
 const firstMachineName = "machine1";
 const secondMachineName = "machine2";
@@ -19,16 +20,19 @@ function checkCollision(x) {
  * Preload for machines
  */
 function preloadMachines() {
-    game.load.image(firstMachineName, 'assets/machine1.png');
-    game.load.image(secondMachineName, 'assets/machine2.png');
+    game.load.image(firstMachineName, 'assets/maquina.png');
+    game.load.image(secondMachineName, 'assets/maquina.png');
 }
 
 /**
  * Create logic for machines
  */
 function createMachines() {
-    machines.push(game.add.sprite(firstMachineX, 0, firstMachineName));
-    machines.push(game.add.sprite(secondMachineX, 0, secondMachineName));
+    machines.push(game.add.sprite(firstMachineX, machinesY, firstMachineName));
+    machines.push(game.add.sprite(secondMachineX, machinesY, secondMachineName));
+
+    machines[0].scale.setTo(0.7, 0.7);
+    machines[1].scale.setTo(0.7, 0.7);
 
     game.physics.enable(machines[0], Phaser.Physics.ARCADE);
     game.physics.enable(machines[1], Phaser.Physics.ARCADE);

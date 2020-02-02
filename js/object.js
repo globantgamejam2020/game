@@ -8,7 +8,7 @@ const posLimit = 1200;
 const posStep = 5;
 const objSize = 30;
 const objX = -30;
-const objY = 285;
+const objY = 337;
 
 // Current object position
 var objectPos = 0;

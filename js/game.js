@@ -7,13 +7,16 @@ var game = new Phaser.Game(
 
 var debugText = '';
 var bgMusic; // TODO
+var anims = [];
+var platforms = [];
+
+const platformY = 400;
 
 function preload() {
     preloadSwitches();
     preloadMachines();
     // this.load.audio('bg_music', 'sounds/bg-music.ogg'); // TODO: Music
-    // this.load.spritesheet('platform', 'assets/platform.png', { frameWidth: 119, frameHeight: 24 }); // TODO: Platform
-
+    game.load.spritesheet('platform', 'assets/cinta.png', 201, 61, 2);
 }
 
 function create() {
@@ -21,6 +24,19 @@ function create() {
     // bgMusic = this.sound.add('background_music');
     // backgroundMusic.volume = 0.25;
     // bgMusic.play();
+
+    platforms.push(game.add.sprite(-140, platformY, 'platform', 5));
+    anims.push(platforms[0].animations.add('move'));
+    anims[0].play(10, true);
+    for (var i = 0; i < 30; i++) {
+        platforms.push(game.add.sprite(140 * i, platformY, 'platform', 5));
+        anims.push(platforms[i + 1].animations.add('move'));
+        anims[i + 1].play(10, true);
+    }
+
+    // anim.onStart.add(animationStarted, this);
+    // anim.onLoop.add(animationLooped, this);
+    // anim.onComplete.add(animationStopped, this);
 
     createObject();
     createMachines();
