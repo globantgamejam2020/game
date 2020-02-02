@@ -7,7 +7,7 @@ const posLimit = 1200;
 const posStep = 2;
 const objSize = 30;
 
-const objX = -110;
+const objX = -80;
 const objY = 337;
 
 /**
@@ -24,13 +24,11 @@ function createObjects() {
  */
 function updateObject(object) {
     const matrix = object.matrix;
-    object.x += posStep;
+    object.x = object.x >= posLimit ? objX : object.x + posStep;
+    // console.log(object.x);
     graphics.clear();
     for (var r = 0; r < 3; r++) {
         for (var c = 0; c < 3; c++) {
-            if (object.x >= posLimit) {
-                object.x = -110;
-            }
             if (matrix[c][r].active) {
                 graphics.beginFill(matrix[c][r].color);
                 graphics.drawRect((objSize * r) + object.x, objY + (objSize * c), objSize, objSize);
