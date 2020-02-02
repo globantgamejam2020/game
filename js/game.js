@@ -2,7 +2,7 @@ var game = new Phaser.Game(
     1024, 598,
     Phaser.CANVAS,
     'game-canvas',
-    { preload: preload, create: create, render: render, update: update },
+    {preload: preload, create: create, render: render, update: update},
     true
 );
 
@@ -27,6 +27,8 @@ function preload() {
     preloadSwitches();
     preloadMachines();
     game.load.audio('bg_music', 'sounds/fabricaEspacial.wav');
+    this.load.audio('switchAction', 'sounds/switchAction.mp3');
+    this.load.audio('machineAction', 'sounds/machineAction.mp3');
     game.load.spritesheet('platform', 'assets/cinta.png', 201, 61, 2);
     game.load.image('bottom', 'assets/bottom.png');
     game.load.image('marco', 'assets/marco.png');
@@ -62,9 +64,9 @@ function create() {
 
     count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
     createObjects();
-    objects.push({ x: objX, matrix: levels[currentLevel].entrada })
+    objects.push({x: objX, matrix: levels[currentLevel].entrada, solution: levels[currentLevel].salida});
     createMachines();
-    const machineObjects = createSwitches()
+    const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
         machines[i].machineObject = machineObjects[i];
     }
@@ -79,6 +81,7 @@ function update() {
     for (const object of objects) {
         checkCollision(object);
         updateObject(object);
+        checkSolution(object);
     }
 
     platformX += platformStep;
@@ -103,4 +106,14 @@ function render() {
     } else {
         game.debug.text(debugText, 32, 32);
     }
+}
+
+function checkSolution(object) {
+    // console.log('[SOLUTION]', object);
+    for (let i = 0; i < 3; i++)
+        for (let j = 0; j < 3; j++)
+            if (object.matrix[i][j] === object.solution[i][j])
+                console.info('Llegaste a la solucion');
+            else
+                console.info('No sabes nada');
 }

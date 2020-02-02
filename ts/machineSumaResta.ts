@@ -16,75 +16,88 @@ class MachineSumaResta implements Machine {
 
     getActions() {
         return [
-            () => {
-                this.resta = !this.resta;
-                console.log('resta');
-                return this.resta
+            {
+                action: () => {
+                    this.resta = !this.resta;
+                    console.log(`resta: ${this.resta}`);
+                }, getValue: () => this.resta,
             },
-            () => {
-                this.resta = !this.resta;
-                console.log('resta');
-                return this.resta
+            {
+                action: () => {
+                    this.resta = !this.resta;
+                    console.log(`resta: ${this.resta}`);
+                }, getValue: () => !this.resta,
             },
-            () => {
-                this.on = !this.on;
-                console.log('on');
-                return this.on
+            {
+                action: () => {
+                    this.on = !this.on;
+                    console.log('on');
+                }, getValue: () => this.on,
             },
-            () => {
-                this.reset();
-                console.log('reset');
-                return false
+            {
+                action: () => {
+                    this.reset();
+                    console.log('reset');
+                }, getValue: () => false,
             },
         ]
     }
 
     getVariants() {
         return [
-            () => {
-                this.center = !this.center;
-                console.log('center');
-                return this.center
+            {
+                action: () => {
+                    this.center = !this.center;
+                    console.log('center');
+                }, getValue: () => this.center,
             },
-            () => {
-                this.corners = !this.corners;
-                console.log('corners');
-                return this.corners
+            {
+                action: () => {
+                    this.corners = !this.corners;
+                    console.log('corners');
+                }, getValue: () => this.corners,
             },
-            () => {
-                this.row_0 = !this.row_0;
-                console.log('row_0');
-                return this.row_0
+            {
+                action: () => {
+                    this.row_0 = !this.row_0;
+                    console.log('row_0');
+                }, getValue: () => this.row_0,
             },
-            () => {
-                this.row_1 = !this.row_1;
-                console.log('row_1');
-                return this.row_1
+            {
+                action: () => {
+                    this.row_1 = !this.row_1;
+                    console.log('row_1');
+                }, getValue: () => this.row_1,
             },
-            () => {
-                this.col_0 = !this.col_0;
-                console.log('col_0');
-                return this.col_0
+            {
+                action: () => {
+                    this.row_2 = !this.row_2;
+                    console.log('row_2');
+                }, getValue: () => this.row_2,
             },
-            () => {
-                this.row_2 = !this.row_2;
-                console.log('row_2');
-                return this.row_2
+            {
+                action: () => {
+                    this.col_0 = !this.col_0;
+                    console.log('col_0');
+                }, getValue: () => this.col_0,
             },
-            () => {
-                this.col_1 = !this.col_1;
-                console.log('col_1');
-                return this.col_1
+            {
+                action: () => {
+                    this.col_1 = !this.col_1;
+                    console.log('col_1');
+                }, getValue: () => this.col_1,
             },
-            () => {
-                this.col_2 = !this.col_2;
-                console.log('col_2');
-                return this.col_2
+            {
+                action: () => {
+                    this.col_2 = !this.col_2;
+                    console.log('col_2');
+                }, getValue: () => this.col_2,
             },
-            () => {
-                this.middles = !this.middles;
-                console.log('middles');
-                return this.middles
+            {
+                action: () => {
+                    this.middles = !this.middles;
+                    console.log('middles');
+                }, getValue: () => this.middles,
             },
         ].sort(() => Math.random() - 0.5);
     }

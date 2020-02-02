@@ -34,25 +34,33 @@ class MachineColorRotacion {
     }
     getActions() {
         return [
-            () => {
-                this.color = !this.color;
-                console.log('color');
-                return this.color;
+            {
+                action: () => {
+                    this.color = !this.color;
+                    console.log('color');
+                    return this.color;
+                }, getValue: () => this.color,
             },
-            () => {
-                this.rotar = !this.color;
-                console.log('color');
-                return this.rotar;
+            {
+                action: () => {
+                    this.rotar = !this.rotar;
+                    console.log('rotar');
+                    return this.rotar;
+                }, getValue: () => this.rotar,
             },
-            () => {
-                this.on = !this.on;
-                console.log('on');
-                return this.on;
+            {
+                action: () => {
+                    this.on = !this.on;
+                    console.log('on');
+                    return this.on;
+                }, getValue: () => this.on,
             },
-            () => {
-                this.reset();
-                console.log('reset');
-                return false;
+            {
+                action: () => {
+                    this.reset();
+                    console.log('reset');
+                    return false;
+                }, getValue: () => false,
             },
         ];
     }
@@ -71,46 +79,69 @@ class MachineColorRotacion {
     }
     getVariants() {
         return [
-            () => {
-                this.reverseRotate = !this.reverseRotate;
-                console.log('reverseRotate');
-                return this.reverseRotate;
+            {
+                action: () => {
+                    this.reverseRotate = !this.reverseRotate;
+                    console.log('reverseRotate');
+                }, getValue: () => this.reverseRotate,
             },
-            () => {
-                this.rotate90 = !this.rotate90;
-                console.log('rotate90');
-                return this.rotate90;
+            {
+                action: () => {
+                    this.rotate90 = !this.rotate90;
+                    if (!this.rotate90) {
+                        this.rotate180 = false;
+                        this.rotate270 = false;
+                    }
+                    console.log('rotate90');
+                }, getValue: () => this.rotate90,
             },
-            () => {
-                this.rotate180 = !this.rotate180;
-                console.log('rotate180');
-                return this.rotate180;
+            {
+                action: () => {
+                    if (!this.rotate90)
+                        return;
+                    this.rotate180 = !this.rotate180;
+                    if (!this.rotate180)
+                        this.rotate270 = false;
+                    console.log('rotate180');
+                },
+                getValue: () => this.rotate180
             },
-            () => {
-                this.rotate270 = !this.rotate270;
-                console.log('rotate270');
-                return this.rotate270;
+            {
+                action: () => {
+                    if (!this.rotate180)
+                        return;
+                    this.rotate270 = !this.rotate270;
+                    console.log('rotate270');
+                },
+                getValue: () => this.rotate270
             },
             ...[
-                () => {
-                    this.reverseColor = !this.reverseColor;
-                    console.log('reverseColor');
-                    return this.reverseColor;
+                {
+                    action: () => {
+                        this.reverseColor = !this.reverseColor;
+                        console.log('reverseColor');
+                    },
+                    getValue: () => this.reverseColor
                 },
-                () => {
-                    this.colorR = !this.colorR;
-                    console.log('colorR');
-                    return this.colorR;
+                {
+                    action: () => {
+                        this.colorR = !this.colorR;
+                        console.log('colorR');
+                    },
+                    getValue: () => this.colorR
                 },
-                () => {
-                    this.colorG = !this.colorG;
-                    console.log('colorG');
-                    return this.colorG;
-                },
-                () => {
-                    this.colorB = !this.colorB;
-                    console.log('colorB');
-                    return this.colorB;
+                {
+                    action: () => {
+                        this.colorG = !this.colorG;
+                        console.log('colorG');
+                    },
+                    getValue: () => this.colorG
+                }, {
+                    action: () => {
+                        this.colorB = !this.colorB;
+                        console.log('colorB');
+                    },
+                    getValue: () => this.colorB
                 },
             ].sort(() => Math.random() - 0.5)
         ];
@@ -134,13 +165,13 @@ class MachineColorRotacion {
         }
     }
     paint(state) {
-        let color = '#';
-        color += this.colorR ? 'ff' : '00';
-        color += this.colorG ? 'ff' : '00';
-        color += this.colorB ? 'ff' : '00';
+        let color = '';
+        color += this.colorR != this.reverseColor ? 'ff' : '00';
+        color += this.colorG != this.reverseColor ? 'ff' : '00';
+        color += this.colorB != this.reverseColor ? 'ff' : '00';
         for (let i = 0; i < 3; i++)
             for (let j = 0; j < 3; j++)
-                state[i][j].color = color;
+                state[i][j].color = parseInt(`0x${color}`, 16);
     }
     rotate(state, times) {
         const timesNeeded = times % 4;
