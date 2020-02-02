@@ -14,11 +14,9 @@ class MachineColorRotacion {
         this.on = false;
         this.color = false;
         this.rotar = false;
-        this.reverseColor = false;
         this.colorR = false;
         this.colorG = false;
         this.colorB = false;
-        this.reverseRotate = false;
         this.rotate90 = false;
         this.rotate180 = false;
         this.rotate270 = false;
@@ -68,23 +66,15 @@ class MachineColorRotacion {
         this.on = false;
         this.color = false;
         this.rotar = false;
-        this.reverseColor = false;
         this.colorR = false;
         this.colorG = false;
         this.colorB = false;
-        this.reverseRotate = false;
         this.rotate90 = false;
         this.rotate180 = false;
         this.rotate270 = false;
     }
     getVariants() {
         return [
-            {
-                action: () => {
-                    this.reverseRotate = !this.reverseRotate;
-                    console.log('reverseRotate');
-                }, getValue: () => this.reverseRotate,
-            },
             {
                 action: () => {
                     this.rotate90 = !this.rotate90;
@@ -118,13 +108,6 @@ class MachineColorRotacion {
             ...[
                 {
                     action: () => {
-                        this.reverseColor = !this.reverseColor;
-                        console.log('reverseColor');
-                    },
-                    getValue: () => this.reverseColor
-                },
-                {
-                    action: () => {
                         this.colorR = !this.colorR;
                         console.log('colorR');
                     },
@@ -151,13 +134,13 @@ class MachineColorRotacion {
             return false;
         if (this.rotar) {
             if (this.rotate90) {
-                this.rotate(objectState, (this.reverseRotate) ? 3 : 1);
+                this.rotate(objectState, 1);
             }
             else if (this.rotate180) {
                 this.rotate(objectState, 2);
             }
             else if (this.rotate270) {
-                this.rotate(objectState, (this.reverseRotate) ? 1 : 3);
+                this.rotate(objectState, 3);
             }
         }
         if (this.color) {
@@ -167,9 +150,9 @@ class MachineColorRotacion {
     }
     paint(state) {
         let color = '';
-        color += this.colorR != this.reverseColor ? 'ff' : '00';
-        color += this.colorG != this.reverseColor ? 'ff' : '00';
-        color += this.colorB != this.reverseColor ? 'ff' : '00';
+        color += this.colorR ? 'ff' : '00';
+        color += this.colorG ? 'ff' : '00';
+        color += this.colorB ? 'ff' : '00';
         for (let i = 0; i < 3; i++)
             for (let j = 0; j < 3; j++)
                 state[i][j].color = parseInt(`0x${color}`, 16);
