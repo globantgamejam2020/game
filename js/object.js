@@ -17,7 +17,7 @@ const objY = 337;
  */
 function createObjects() {
     for (let i = 0; i < objectCount; i += 1) {
-        const object = { x: objX + objectDistance * i, matrix: copy(levels[currentLevel].entrada), solution: levels[currentLevel].salida, size: objSize };
+        const object = { x: objX + objectDistance * i, matrix: copy(levels[currentLevel].entrada), size: objSize };
         objects.push(object);
         object.graphics = game.add.graphics(0, 0);
     }
