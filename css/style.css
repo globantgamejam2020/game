@@ -6,9 +6,11 @@ body {
 #game-canvas {
     /* border: 5px solid #fff; */
 
-    width: 1200px;
-    height: 600px;
-    background-color: #000;
+    width: 1024px;
+    height: 598px;
+    /* background-color: #000; */
+
+    background: #fff url("../assets/back.png") no-repeat;
 
     position: absolute; /*it can be fixed too*/
     left:0; right:0;
