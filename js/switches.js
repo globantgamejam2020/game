@@ -70,16 +70,16 @@ function createSetOfSwitchesMachineB(switches) {
     const column = switchStartColumn + 350;
     let actions = machine.getActions();
     for (var i = 0; i < 4; i++) {
-        aSwitch = switches.create(column + (i * switchHMargin), switchStartRow - 10, switchOffTexture);
+        aSwitch = switches.create(column + (i * switchHMargin) + 15, switchStartRow, switchOffTexture);
         aSwitch.state = false;
         aSwitch.functions = actions[i];
     }
     let variants = machine.getVariants();
-    for (var i = 0; i < 8; i++) {
-        if (i < 4) {
-            aSwitch = switches.create(column + (i * switchHMargin), switchStartRow + switchVMargin, switchOffTexture);
+    for (var i = 0; i < 6; i++) {
+        if (i < 3) {
+            aSwitch = switches.create(column + (i * (switchHMargin + 10)) + 22, switchStartRow + switchVMargin + 15, switchOffTexture);
         } else {
-            aSwitch = switches.create(column + ((i - 4) * switchHMargin), switchStartRow + switchVMargin * 2, switchOffTexture);
+            aSwitch = switches.create(column + ((i - 3) * (switchHMargin + 10)) + 22, switchStartRow + switchVMargin * 2 + 35, switchOffTexture);
         }
         aSwitch.state = false;
         aSwitch.functions = variants[i];
@@ -114,7 +114,7 @@ function createSwitches() {
     // Initially enable gravity for switches
     game.physics.enable(switches[0], Phaser.Physics.ARCADE);
     game.physics.enable(switches[1], Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = machineGravity;
+    // game.physics.arcade.gravity.y = machineGravity;
 
     return machines;
 }

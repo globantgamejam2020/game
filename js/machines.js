@@ -48,7 +48,7 @@ function createEdges() {
 
     game.physics.enable(edges[0], Phaser.Physics.ARCADE);
     game.physics.enable(edges[1], Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = machineGravity;
+    // game.physics.arcade.gravity.y = machineGravity;
 }
 
 /**
@@ -64,7 +64,7 @@ function createMachines() {
 
     game.physics.enable(machines[0], Phaser.Physics.ARCADE);
     game.physics.enable(machines[1], Phaser.Physics.ARCADE);
-    game.physics.arcade.gravity.y = machineGravity;
+    // game.physics.arcade.gravity.y = machineGravity;
 }
 
 function updateMachines() {
