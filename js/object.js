@@ -32,8 +32,10 @@ function createObjects() {
  * Update object based on a 3x3 matrix
  * @param {*} matrix 
  */
-function updateObject(matrix) {
+function updateObject(object) {
+    const matrix = object.matrix;
     objectPos += posStep;
+    object.x += posStep;
     graphics.clear();
     for (var r = 0; r < 3; r++) {
         for (var c = 0; c < 3; c++) {

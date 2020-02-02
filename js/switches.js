@@ -8,8 +8,8 @@ const switchStartRow = 200;
 const switchStartColumn = 250;
 
 // Switches textures references
-const switchOffTexture = "switch-off";
-const switchOnTexture = "switch-on";
+const switchOffTexture = "switch-on";
+const switchOnTexture = "switch-off";
 
 // Padding/margin
 const setPadding = 200;
@@ -23,8 +23,8 @@ var switches = [];
  * Preload for switches
  */
 function preloadSwitches() {
-    game.load.image(switchOnTexture, 'assets/switch_on.png');
-    game.load.image(switchOffTexture, 'assets/switch_off.png');
+    game.load.image(switchOnTexture, 'assets/switch_off.png');
+    game.load.image(switchOffTexture, 'assets/switch_on.png');
 }
 
 /**
@@ -67,7 +67,7 @@ function createSetOfSwitchesMachineA(switches) {
 function createSetOfSwitchesMachineB(switches) {
     var aSwitch;
     const machine = new MachineColorRotacion();
-    const column = switchStartColumn - 25;
+    const column = switchStartColumn + 350;
     let actions = machine.getActions();
     for (var i = 0; i < 4; i++) {
         aSwitch = switches.create(column + (i * switchHMargin), switchStartRow - 10, switchOffTexture);
@@ -118,7 +118,8 @@ function createSwitches() {
  * @param {*} aSwitch 
  */
 function onSwitchUp(aSwitch) {
-    updateSwitchState(aSwitch.action());
+    aSwitch.state = aSwitch.action();
+    updateSwitchState(aSwitch);
 }
 
 /**

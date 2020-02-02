@@ -1,6 +1,6 @@
 class MachineSumaResta {
     constructor() {
-        this.on = true;
+        this.on = false;
         this.resta = false;
         this.center = false;
         this.corners = false;
@@ -16,18 +16,22 @@ class MachineSumaResta {
         return [
             () => {
                 this.resta = !this.resta;
+                console.log('resta');
                 return this.resta;
             },
             () => {
                 this.resta = !this.resta;
+                console.log('resta');
                 return this.resta;
             },
             () => {
                 this.on = !this.on;
+                console.log('on');
                 return this.on;
             },
             () => {
                 this.reset();
+                console.log('reset');
                 return false;
             },
         ];
@@ -36,44 +40,53 @@ class MachineSumaResta {
         return [
             () => {
                 this.center = !this.center;
+                console.log('center');
                 return this.center;
             },
             () => {
                 this.corners = !this.corners;
+                console.log('corners');
                 return this.corners;
             },
             () => {
                 this.row_0 = !this.row_0;
+                console.log('row_0');
                 return this.row_0;
             },
             () => {
                 this.row_1 = !this.row_1;
+                console.log('row_1');
                 return this.row_1;
             },
             () => {
                 this.col_0 = !this.col_0;
+                console.log('col_0');
                 return this.col_0;
             },
             () => {
                 this.row_2 = !this.row_2;
+                console.log('row_2');
                 return this.row_2;
             },
             () => {
                 this.col_1 = !this.col_1;
+                console.log('col_1');
                 return this.col_1;
             },
             () => {
                 this.col_2 = !this.col_2;
+                console.log('col_2');
                 return this.col_2;
             },
             () => {
                 this.middles = !this.middles;
+                console.log('middles');
                 return this.middles;
             },
         ].sort(() => Math.random() - 0.5);
     }
     reset() {
-        this.on = true;
+        this.on = false;
         this.resta = false;
         this.center = false;
         this.corners = false;
@@ -85,6 +98,8 @@ class MachineSumaResta {
         this.col_2 = false;
     }
     transform(objectState) {
+        if (!this.on)
+            return;
         const coordinates = this.getCoordinates();
         for (const [x, y] of coordinates) {
             if (this.resta)
@@ -97,7 +112,7 @@ class MachineSumaResta {
     }
     getCoordinates() {
         let count = 0;
-        const aux = new Array(3).map(() => new Array(3).fill(0));
+        const aux = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         if (this.row_0) {
             count += 1;
             aux[0].forEach((_, index, arr) => arr[index] += 1);
@@ -144,6 +159,8 @@ class MachineSumaResta {
             aux[1][1] += 1;
         }
         const result = [];
+        if (count === 0)
+            return result;
         for (let i = 0; i < 3; i += 1)
             for (let j = 0; j < 3; j += 1)
                 if (aux[i][j] === count)
