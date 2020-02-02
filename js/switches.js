@@ -25,6 +25,20 @@ var switches = [];
 function preloadSwitches() {
     game.load.image(switchOnTexture, 'assets/switch_off.png');
     game.load.image(switchOffTexture, 'assets/switch_on.png');
+
+    game.load.image('SW_SUMAR_01', 'assets/SW_SUMAR_01.png');
+    game.load.image('SW_RESTAR_01', 'assets/SW_RESTAR_01.png');
+    game.load.image('SW_POWER_01', 'assets/SW_POWER_01.png');
+    game.load.image('SW_RESET_01', 'assets/SW_RESET_01.png');
+    game.load.image('SW_COLOR_01', 'assets/SW_COLOR_01.png');
+    game.load.image('SW_GIRAR_01', 'assets/SW_GIRAR_01.png');
+
+    game.load.image('SW_SUMAR_02', 'assets/SW_SUMAR_02.png');
+    game.load.image('SW_RESTAR_02', 'assets/SW_RESTAR_02.png');
+    game.load.image('SW_POWER_02', 'assets/SW_POWER_02.png');
+    game.load.image('SW_RESET_02', 'assets/SW_RESET_02.png');
+    game.load.image('SW_COLOR_02', 'assets/SW_COLOR_02.png');
+    game.load.image('SW_GIRAR_02', 'assets/SW_GIRAR_02.png');
 }
 
 /**
@@ -45,7 +59,7 @@ function createSetOfSwitchesMachineA(switches) {
     const machine = new MachineSumaResta();
     let actions = machine.getActions();
     for (var i = 0; i < 4; i++) {
-        aSwitch = switches.create(switchStartColumn - 25 + (i * switchHMargin), switchStartRow, switchOffTexture);
+        aSwitch = switches.create(switchStartColumn - 25 + (i * switchHMargin), switchStartRow, actions[i].getSwitchOffTexture());
         aSwitch.state = false;
         aSwitch.functions = actions[i];
     }
@@ -70,7 +84,7 @@ function createSetOfSwitchesMachineB(switches) {
     const column = switchStartColumn + 350;
     let actions = machine.getActions();
     for (var i = 0; i < 4; i++) {
-        aSwitch = switches.create(column + (i * switchHMargin) + 15, switchStartRow, switchOffTexture);
+        aSwitch = switches.create(column + (i * switchHMargin) + 15, switchStartRow, actions[i].getSwitchOffTexture());
         aSwitch.state = false;
         aSwitch.functions = actions[i];
     }
@@ -145,8 +159,10 @@ function updateSwitches() {
  */
 function updateSwitchState(aSwitch) {
     if (aSwitch.state) {
-        aSwitch.loadTexture(switchOnTexture);
+        aSwitch.loadTexture(aSwitch.functions.getSwitchOnTexture());
+        // aSwitch.loadTexture(switchOnTexture);
     } else {
-        aSwitch.loadTexture(switchOffTexture);
+        aSwitch.loadTexture(aSwitch.functions.getSwitchOffTexture());
+        // aSwitch.loadTexture(switchOffTexture);
     }
 }

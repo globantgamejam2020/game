@@ -11,6 +11,16 @@ var Colors;
 })(Colors || (Colors = {}));
 class MachineColorRotacion {
     constructor() {
+        this.switchOnTextureColor = 'SW_COLOR_01';
+        this.switchOnTextureRotate = 'SW_GIRAR_01';
+        this.switchOnTexturePower = 'SW_POWER_01';
+        this.switchOnTextureReset = 'SW_RESET_01';
+        this.switchOffTextureColor = 'SW_COLOR_02';
+        this.switchOffTextureRotate = 'SW_GIRAR_02';
+        this.switchOffTexturePower = 'SW_POWER_02';
+        this.switchOffTextureReset = 'SW_RESET_02';
+        this.switchOffTexture = "switch-on";
+        this.switchOnTexture = "switch-off";
         this.on = false;
         this.color = false;
         this.rotar = false;
@@ -38,6 +48,8 @@ class MachineColorRotacion {
                     console.log('color');
                     return this.color;
                 }, getValue: () => this.color,
+                getSwitchOnTexture: () => this.switchOnTextureColor,
+                getSwitchOffTexture: () => this.switchOffTextureColor
             },
             {
                 action: () => {
@@ -45,6 +57,8 @@ class MachineColorRotacion {
                     console.log('rotar');
                     return this.rotar;
                 }, getValue: () => this.rotar,
+                getSwitchOnTexture: () => this.switchOnTextureRotate,
+                getSwitchOffTexture: () => this.switchOffTextureRotate
             },
             {
                 action: () => {
@@ -52,6 +66,8 @@ class MachineColorRotacion {
                     console.log('on');
                     return this.on;
                 }, getValue: () => this.on,
+                getSwitchOnTexture: () => this.switchOnTexturePower,
+                getSwitchOffTexture: () => this.switchOffTexturePower
             },
             {
                 action: () => {
@@ -59,6 +75,8 @@ class MachineColorRotacion {
                     console.log('reset');
                     return false;
                 }, getValue: () => false,
+                getSwitchOnTexture: () => this.switchOnTextureReset,
+                getSwitchOffTexture: () => this.switchOffTextureReset
             },
         ];
     }
@@ -84,6 +102,8 @@ class MachineColorRotacion {
                     }
                     console.log('rotate90');
                 }, getValue: () => this.rotate90,
+                getSwitchOnTexture: () => this.switchOnTexture,
+                getSwitchOffTexture: () => this.switchOffTexture
             },
             {
                 action: () => {
@@ -94,7 +114,9 @@ class MachineColorRotacion {
                         this.rotate270 = false;
                     console.log('rotate180');
                 },
-                getValue: () => this.rotate180
+                getValue: () => this.rotate180,
+                getSwitchOnTexture: () => this.switchOnTexture,
+                getSwitchOffTexture: () => this.switchOffTexture
             },
             {
                 action: () => {
@@ -103,7 +125,9 @@ class MachineColorRotacion {
                     this.rotate270 = !this.rotate270;
                     console.log('rotate270');
                 },
-                getValue: () => this.rotate270
+                getValue: () => this.rotate270,
+                getSwitchOnTexture: () => this.switchOnTexture,
+                getSwitchOffTexture: () => this.switchOffTexture
             },
             ...[
                 {
@@ -111,20 +135,26 @@ class MachineColorRotacion {
                         this.colorR = !this.colorR;
                         console.log('colorR');
                     },
-                    getValue: () => this.colorR
+                    getValue: () => this.colorR,
+                    getSwitchOnTexture: () => this.switchOnTexture,
+                    getSwitchOffTexture: () => this.switchOffTexture
                 },
                 {
                     action: () => {
                         this.colorG = !this.colorG;
                         console.log('colorG');
                     },
-                    getValue: () => this.colorG
+                    getValue: () => this.colorG,
+                    getSwitchOnTexture: () => this.switchOnTexture,
+                    getSwitchOffTexture: () => this.switchOffTexture
                 }, {
                     action: () => {
                         this.colorB = !this.colorB;
                         console.log('colorB');
                     },
-                    getValue: () => this.colorB
+                    getValue: () => this.colorB,
+                    getSwitchOnTexture: () => this.switchOnTexture,
+                    getSwitchOffTexture: () => this.switchOffTexture
                 },
             ].sort(() => Math.random() - 0.5)
         ];
