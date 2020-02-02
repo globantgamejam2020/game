@@ -1,4 +1,4 @@
-import {CellState, Machine} from './types';
+import { CellState, Machine } from './types';
 
 class MachineSumaResta implements Machine {
     private on = false;
@@ -116,7 +116,7 @@ class MachineSumaResta implements Machine {
     }
 
     transform(objectState: CellState[][]) {
-        if (!this.on) return;
+        if (!this.on) return false;
         const coordinates = this.getCoordinates();
         for (const [x, y] of coordinates) {
             if (this.resta) objectState[x][y].active = false;
@@ -125,6 +125,7 @@ class MachineSumaResta implements Machine {
                 objectState[x][y].color = 0x000000;
             }
         }
+        return true;
     }
 
     getCoordinates() {

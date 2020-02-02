@@ -112,7 +112,7 @@ class MachineSumaResta {
     }
     transform(objectState) {
         if (!this.on)
-            return;
+            return false;
         const coordinates = this.getCoordinates();
         for (const [x, y] of coordinates) {
             if (this.resta)
@@ -122,6 +122,7 @@ class MachineSumaResta {
                 objectState[x][y].color = 0x000000;
             }
         }
+        return true;
     }
     getCoordinates() {
         let count = 0;

@@ -37,7 +37,6 @@ function preload() {
 
 function create() {
 
-
     // Background music
     bgMusic = game.sound.add('bg_music');
     bgMusic.loop = true;

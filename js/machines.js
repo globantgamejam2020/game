@@ -22,8 +22,8 @@ var edges = [];
 function checkCollision(object) {
     for (const machine of machines)
         if (object.x === machine.position.x + 50) {
-            game.sound.play('machineAction');
-            machine.machineObject.transform(object.matrix)
+            if (machine.machineObject.transform(object.matrix))
+                game.sound.play('machineAction');
         }
 }
 

@@ -148,7 +148,7 @@ class MachineColorRotacion {
     }
     transform(objectState) {
         if (!this.on)
-            return;
+            return false;
         if (this.rotar) {
             if (this.rotate90) {
                 this.rotate(objectState, (this.reverseRotate) ? 3 : 1);
@@ -163,6 +163,7 @@ class MachineColorRotacion {
         if (this.color) {
             this.paint(objectState);
         }
+        return (this.rotar || this.color);
     }
     paint(state) {
         let color = '';

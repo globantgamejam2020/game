@@ -152,9 +152,9 @@ class MachineColorRotacion implements Machine {
         ];
     }
 
-    transform(objectState: CellState[][]): void {
+    transform(objectState: CellState[][]): boolean {
         if (!this.on)
-            return;
+            return false;
 
         if (this.rotar) {
             if (this.rotate90) {
@@ -169,6 +169,8 @@ class MachineColorRotacion implements Machine {
         if (this.color) {
             this.paint(objectState);
         }
+
+        return (this.rotar || this.color);
     }
 
     paint(state: CellState[][]) {

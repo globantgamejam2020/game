@@ -5,7 +5,7 @@ export interface Machine {
 
     getVariants(): { action: () => void, getValue: () => boolean }[];
 
-    transform(objectState: CellState[][]): void;
+    transform(objectState: CellState[][]): boolean;
 }
 
 const levels = [
