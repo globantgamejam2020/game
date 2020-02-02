@@ -65,6 +65,7 @@ function update() {
         checkCollision(object);
         updateObject(object);
     }
+    updateSwitches();
 }
 
 function render() {

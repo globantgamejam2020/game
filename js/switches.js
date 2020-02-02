@@ -47,7 +47,7 @@ function createSetOfSwitchesMachineA(switches) {
     for (var i = 0; i < 4; i++) {
         aSwitch = switches.create(switchStartColumn - 25 + (i * switchHMargin), switchStartRow, switchOffTexture);
         aSwitch.state = false;
-        aSwitch.action = actions[i];
+        aSwitch.functions = actions[i];
     }
     let variants = machine.getVariants();
     for (var i = 0; i < 9; i++) {
@@ -59,7 +59,7 @@ function createSetOfSwitchesMachineA(switches) {
             aSwitch = switches.create(switchStartColumn + ((i - 6) * switchHMargin), switchStartRow + switchVMargin * 3, switchOffTexture);
         }
         aSwitch.state = false;
-        aSwitch.action = variants[i];
+        aSwitch.functions = variants[i];
     }
     return machine;
 }
@@ -72,7 +72,7 @@ function createSetOfSwitchesMachineB(switches) {
     for (var i = 0; i < 4; i++) {
         aSwitch = switches.create(column + (i * switchHMargin), switchStartRow - 10, switchOffTexture);
         aSwitch.state = false;
-        aSwitch.action = actions[i];
+        aSwitch.functions = actions[i];
     }
     let variants = machine.getVariants();
     for (var i = 0; i < 8; i++) {
@@ -82,7 +82,7 @@ function createSetOfSwitchesMachineB(switches) {
             aSwitch = switches.create(column + ((i - 4) * switchHMargin), switchStartRow + switchVMargin * 2, switchOffTexture);
         }
         aSwitch.state = false;
-        aSwitch.action = variants[i];
+        aSwitch.functions = variants[i];
     }
     return machine;
 }
@@ -118,8 +118,19 @@ function createSwitches() {
  * @param {*} aSwitch 
  */
 function onSwitchUp(aSwitch) {
-    aSwitch.state = aSwitch.action();
-    updateSwitchState(aSwitch);
+    aSwitch.functions.action();
+    updateSwitches();
+}
+
+function updateSwitches() {
+    for (const switchGroup of switches) {
+        switchGroup.children.forEach(switchObject => {
+            const value = switchObject.functions.getValue();
+            if (value === switchObject.state) return;
+            switchObject.state = value;
+            updateSwitchState(switchObject);
+        });
+    }
 }
 
 /**
