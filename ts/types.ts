@@ -1,4 +1,4 @@
-export type CellState = { color: string, active: boolean };
+export type CellState = { color: number, active: boolean };
 
 export interface Machine {
     getActions(): (() => void)[];
@@ -11,38 +11,112 @@ export interface Machine {
 const levels = [
     {
         entrada: [
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: true }],
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: true }],
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ],
         salida: [
-            [{ color: 'white', active: false }, { color: 'white', active: true }, { color: 'white', active: false }],
-            [{ color: 'white', active: false }, { color: 'white', active: true }, { color: 'white', active: false }],
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ]
     },
+
     {
         entrada: [
-            [{ color: 'white', active: true }, { color: 'white', active: false }, { color: 'white', active: false }],
-            [{ color: 'white', active: true }, { color: 'white', active: false }, { color: 'white', active: false }],
-            [{ color: 'white', active: false }, { color: 'white', active: true }, { color: 'white', active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ],
         salida: [
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: false }],
-            [{ color: 'white', active: true }, { color: 'white', active: false }, { color: 'white', active: true }],
-            [{ color: 'white', active: false }, { color: 'white', active: true }, { color: 'white', active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ]
     },
+
     {
         entrada: [
-            [{ color: 'white', active: false }, { color: 'white', active: false }, { color: 'white', active: true }],
-            [{ color: 'white', active: false }, { color: 'white', active: false }, { color: 'white', active: true }],
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ],
         salida: [
-            [{ color: 'white', active: true }, { color: 'white', active: false }, { color: 'white', active: true }],
-            [{ color: 'white', active: true }, { color: 'white', active: false }, { color: 'white', active: true }],
-            [{ color: 'white', active: true }, { color: 'white', active: true }, { color: 'white', active: true }]
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: false},
+                {color: parseInt("0xffffff", 16), active: true}
+            ],
+            [
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true},
+                {color: parseInt("0xffffff", 16), active: true}
+            ]
         ]
     }
 ];

@@ -144,7 +144,7 @@ class MachineColorRotacion implements Machine {
     }
 
     paint(state: CellState[][]) {
-        let color = '#';
+        let color = '';
 
         color += this.colorR ? 'ff' : '00';
         color += this.colorG ? 'ff' : '00';
@@ -152,7 +152,7 @@ class MachineColorRotacion implements Machine {
 
         for (let i = 0; i < 3; i++)
             for (let j = 0; j < 3; j++)
-                state[i][j].color = color;
+                state[i][j].color = parseInt(`0x${color}`, 16);
 
     }
 

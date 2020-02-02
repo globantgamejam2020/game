@@ -108,7 +108,7 @@ class MachineSumaResta implements Machine {
             if (this.resta) objectState[x][y].active = false;
             else {
                 objectState[x][y].active = true;
-                objectState[x][y].color = 'black';
+                objectState[x][y].color = 0x000000;
             }
         }
     }
