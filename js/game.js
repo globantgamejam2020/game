@@ -123,7 +123,7 @@ function updateGoalObject() {
 
 function update() {
     if (!gameStarted) {
-        // startGame(undefined);
+        startGame(undefined);
     } else {
         updateMachines();
         for (const object of objects) {
