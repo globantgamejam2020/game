@@ -170,7 +170,6 @@ function render() {
 }
 
 function navigateToNextLevel() {
-    currentLevel += 1;
     if (currentLevel === end) {
         showSuccess();
     }
@@ -178,6 +177,7 @@ function navigateToNextLevel() {
 }
 
 function showNextLevel() {
+    currentLevel += 1;
     updateGoalObject();
     createObjects();
     countInt = 35;
