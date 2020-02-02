@@ -106,7 +106,7 @@ class MachineSumaResta {
                 objectState[x][y].active = false;
             else {
                 objectState[x][y].active = true;
-                objectState[x][y].color = 'black';
+                objectState[x][y].color = 0x000000;
             }
         }
     }
@@ -115,15 +115,18 @@ class MachineSumaResta {
         const aux = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
         if (this.row_0) {
             count += 1;
-            aux[0].forEach((_, index, arr) => arr[index] += 1);
+            for (let i = 0; i < 3; i += 1)
+                aux[0][i] += 1;
         }
         if (this.row_1) {
             count += 1;
-            aux[1].forEach((_, index, arr) => arr[index] += 1);
+            for (let i = 0; i < 3; i += 1)
+                aux[1][i] += 1;
         }
         if (this.row_2) {
             count += 1;
-            aux[2].forEach((_, index, arr) => arr[index] += 1);
+            for (let i = 0; i < 3; i += 1)
+                aux[2][i] += 1;
         }
         if (this.col_0) {
             count += 1;

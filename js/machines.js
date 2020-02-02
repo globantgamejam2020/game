@@ -14,7 +14,7 @@ var machines = [];
 // TODO: Check whether object got inside a machine
 function checkCollision(object) {
     for (const machine of machines)
-        if (object.x === machine.position.x) {
+        if (object.x === machine.position.x + 50) {
             console.log(object.matrix);
             machine.machineObject.transform(object.matrix)
             console.log(object.matrix);
