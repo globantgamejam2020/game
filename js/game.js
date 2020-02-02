@@ -80,7 +80,6 @@ function create() {
 
     count = game.add.text(670, 543, countInt, { fontSize: '15px', fill: '#000' });
     createObjects();
-    createGoalObject(currentLevel);
     createMachines();
     const machineObjects = createSwitches();
     for (let i = 0; i < machineObjects.length; i += 1) {
@@ -99,10 +98,27 @@ function create() {
     speaker = game.add.sprite(790, 410, 'speaker-anim', 5);
     speaker.animations.add('play-sound');
     speaker.play(10, true); // TODO: fix
+
+    updateGoalObject();
 }
 
-function createGoalObject() {
-    goalObject = { level: currentLevel, ...levels[currentLevel].salida }
+function updateGoalObject() {
+    if (goalObject && goalObject.level === currentLevel) return;
+    if (goalObject) goalObject.graphics.destroy();
+    const matrix = levels[currentLevel].salida
+    goalObject = { level: currentLevel, matrix };
+    goalObject.graphics = game.add.graphics(0, 0);
+
+    const size = 20;
+    for (var r = 0; r < 3; r++) {
+        for (var c = 0; c < 3; c++) {
+            if (matrix[c][r].active) {
+                goalObject.graphics.beginFill(matrix[c][r].color);
+                goalObject.graphics.drawRect((size * r) + 735, 492 + (size * c), size, size);
+            }
+        }
+    }
+    goalObject.graphics.endFill();
 }
 
 function update() {
@@ -131,6 +147,7 @@ function update() {
                 platform.x += platformStep;
         }
     }
+    updateGoalObject();
 }
 
 function render() {
@@ -142,16 +159,16 @@ function render() {
 }
 
 function checkSolution(object) {
+    if (!goalObject || !goalObject.matrix) return;
     let solved = true;
     let i = 0;
     let j = 0;
 
     while (i < 3 && solved) {
         while (j < 3 && solved) {
-            solved = object.matrix[i][j].active === object.solution[i][j].active && object.matrix[i][j].color === object.solution[i][j].color;
+            solved = object.matrix[i][j].active === goalObject.matrix[i][j].active && object.matrix[i][j].color === goalObject.matrix[i][j].color;
             j++;
         }
-
         i++;
     }
 
