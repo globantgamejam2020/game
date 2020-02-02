@@ -66,6 +66,10 @@ function resetObject(object) {
     object.graphics.clear();
     object.x = -370;
     object.matrix = copy(levels[currentLevel].entrada);
+    countInt -= 1;
+    if (countInt === 0) {
+        showYouLose();
+    }
 }
 
 function checkSolution(object) {

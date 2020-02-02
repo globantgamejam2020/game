@@ -61,7 +61,7 @@ function preload() {
 }
 
 function create() {
-
+    game.camera.onFadeComplete.add(showNextLevel, this);
     game.add.image(0, 0, 'back_simple');
     bottom = game.add.sprite(20, 420, 'bottom');
     bottom.scale.setTo(0.95, 0.95);
@@ -99,7 +99,7 @@ function create() {
     speaker = game.add.sprite(790, 410, 'speaker-anim', 5);
     speaker.animations.add('play-sound');
     speaker.play(10, true); // TODO: fix
-    navigateToNextLevel();
+    showNextLevel();
 }
 
 function updateGoalObject() {
@@ -161,11 +161,22 @@ function navigateToNextLevel() {
     if (currentLevel === end) {
         showSuccess();
     }
+    game.camera.fade(0x000000, 750);
+}
+
+function showNextLevel() {
     updateGoalObject();
     createObjects();
     countInt = 35;
+    game.camera.resetFX();
 }
 
 function showSuccess() {
     game.add.sprite(0, 0, 'RRR_VICTORIA', 5);
+    gameStarted = false;
+}
+
+function showYouLose() {
+    game.add.sprite(0, 0, 'RRR_DERROTA', 5);
+    gameStarted = false;
 }
